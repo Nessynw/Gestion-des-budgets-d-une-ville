@@ -1,17 +1,20 @@
 package equipe;
 
-import java.util.Random;
+public class Evaluateur extends Personne implements IEvaluateur{
 
-public class Evaluateur extends Personne{
-   private TypeCout specialisation;
-   private Random random;
-    public Evaluateur(String nom, String prenom, String adresse, String telephone, String email, String role) {
-        super(nom, prenom, adresse, telephone, email, role);
+    private TypeCout specialisation;
+    public Evaluateur(String nom, String prenom, String adresse, String telephone, String email, TypeCout specialisation) {
+        super(nom,prenom,adresse,telephone,email);
         this.specialisation=specialisation;
-        this.random=new Random();
     }
-    public TypeCout getSpecialisation() {
-        return specialisation;
+    @Override
+    public void evaluer(Projet p) {
+        double valeur = Math.random()*10000;
+        switch (specialisation){
+            case SOCIAL -> p.setCoutSocial(valeur);
+            case ECONOMIQUE -> p.setCoutEconomique(valeur);
+            case ENVIRONNEMENTAL -> p.setCoutEnvironnemental(valeur);
+        }
+
     }
-    public void setSpecialisation(TypeCout specialisation) {}
 }

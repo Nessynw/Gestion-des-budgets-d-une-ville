@@ -1,25 +1,52 @@
 package equipe;
 
-public class Projet extends Objet {
-    private final Secteur secteur;
-    private final int benefice;
+public class Projet{
     private String titre;
     private String description;
-    private int[] couts
-    /*private int coutEconomique;
-    private int coutSocial;
-    private int coutEnvironnemental;*/
+    private final Secteur secteur;
+    private double coutEconomique;
+    private double coutSocial;
+    private double coutEnvironnemental;
+    private double benefice;
 
-    public Projet(String titre, String description, Secteur secteur,int benefice,int[] couts) {
-        super(titre,benefice,couts)
-        //this.titre = titre;
+
+
+    public Projet(String titre, String description, Secteur secteur) {
+        this.titre = titre;
         this.description = description;
         this.secteur = secteur;
-        /*this.benefice = 0;
-        this.coutEconomique = 0;
-        this.coutSocial = 0;
-        this.coutEnvironnemental = 0;*/
     }
+    public String getTitre() {
+        return titre;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public Secteur getSecteur() {
+        return secteur;
+    }
+    public double getCoutEconomique() {
+        return coutEconomique;
+    }
+    public void setCoutEconomique(double coutEconomique) {
+        this.coutEconomique = coutEconomique;
+    }
+    public double getCoutSocial() {
+        return coutSocial;
+    }
+    public void setCoutSocial(double coutSocial) {
+        this.coutSocial = coutSocial;
+    }
+    public double getCoutEnvironnemental() {
+        return coutEnvironnemental;
+    }
+    public void setCoutEnvironnemental(double coutEnvironnemental) {
+        this.coutEnvironnemental = coutEnvironnemental;
+    }
+    public double getBenefice() {
+        return benefice;
+    }
+    public void setBenefice(double benefice) {}
 
 
 

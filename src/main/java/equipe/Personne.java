@@ -1,20 +1,18 @@
 package equipe;
 
-public class Personne {
+public abstract class Personne {
     private String nom;
     private String prenom;
     private String adresse;
     private String telephone;
     private String email;
-    private String role;
 
-    public Personne(String nom, String prenom, String adresse, String telephone, String email, String role) {
+    public Personne(String nom, String prenom, String adresse, String telephone, String email) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
         this.telephone = telephone;
         this.email = email;
-        this.role = role;
     }
 
     public String getNom() {
