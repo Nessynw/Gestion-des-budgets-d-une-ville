@@ -22,6 +22,7 @@ public class Main {
                 case 3:
                     testerConversion();
                     break;
+
                 default:
                     System.out.println("Option invalide");
             }
