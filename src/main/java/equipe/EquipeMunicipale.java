@@ -19,6 +19,21 @@ public class EquipeMunicipale {
         experts=new ArrayList<>();
     }
 
+    public void ajouterExpert(Expert expert) {
+        if (expert == null) {
+            throw new IllegalArgumentException("L'expert ne peut pas être null");
+        }
+        experts.add(expert);
+    }
+
+    public List<Projet> getProjets() {
+        return new ArrayList<>(projets);
+    }
+
+    public List<Expert> getExperts() {
+        return new ArrayList<>(experts);
+    }
+
     public void cycleSimulation(){
         for ( Expert expert : experts){
             Projet p= expert.proposerProjet("Projet "+ Math.random(), "Description", Secteur.SANTE);

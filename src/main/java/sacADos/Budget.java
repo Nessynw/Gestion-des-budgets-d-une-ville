@@ -1,27 +1,32 @@
 package sacADos;
 
+import java.util.Arrays;
+
 public class Budget{
     private int budgetTotal=0;
     private int[] budgetCouts;
     private int[] budgetSecteurs;
 
-    public Budget(int budget,int[] c,int[] s){
-        budgetTotal=budget;
-        budgetCouts=c;
-        budgetSecteurs=s;
+    public Budget(int budget, int[] c, int[] s){
+    if (c == null || s == null) {
+        throw new IllegalArgumentException("Les tableaux de budget ne peuvent pas être null");
     }
+    budgetTotal = budget;
+    budgetCouts = c;
+    budgetSecteurs = s;
+}
 
     public int getBudgetTotal() {
         return budgetTotal;
     }
 
     public int[] getBudgetCouts(){
-        return budgetCouts;
-    }
+    return Arrays.copyOf(budgetCouts, budgetCouts.length);//j'ai fais en sorte qu'on retourne des copies ici pour éviter de compromettre l'encapsulation
+}
 
-    public int[] getBudgetSecteurs(){
-        return budgetSecteurs;
-    }
+public int[] getBudgetSecteurs(){
+    return Arrays.copyOf(budgetSecteurs, budgetSecteurs.length);
+}
 
     public void setBudgetCouts(int[] budgetCouts) {
         this.budgetCouts = budgetCouts;
@@ -36,6 +41,6 @@ public class Budget{
     }
 
     public void afficheBudget(){
-        System.out.println("Le budget restant est"+budgetTotal);
+        System.out.println("Le budget restant est "+budgetTotal);
     }
 }
