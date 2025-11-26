@@ -1,5 +1,6 @@
 package equipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Expert extends Personne implements IExpert{
@@ -9,6 +10,9 @@ public class Expert extends Personne implements IExpert{
         super(nom,prenom,address,telephone,email);
         this.competences=competences;
     }
+    public List<Secteur> getCompetences() {
+        return new ArrayList<>(competences);
+    }
 
     @Override
     public Projet proposerProjet( String titre, String description, Secteur secteur) {
@@ -17,4 +21,9 @@ public class Expert extends Personne implements IExpert{
         }
         return new Projet(titre, description, secteur);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " (Compétences: " + competences + ")";
     }
+}

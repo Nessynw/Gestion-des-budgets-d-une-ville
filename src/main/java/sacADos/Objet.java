@@ -43,7 +43,7 @@ public Objet(String nom, int utilite, int[] couts) {
 
     @Override
     public String toString(){
-        return nom+"(u="+utilite+")(c="+Arrays.toString(couts)+")";
+        return nom+"(utilité = "+utilite+")(coûts ="+Arrays.toString(couts)+")";
     }
 
     public String getNom() {

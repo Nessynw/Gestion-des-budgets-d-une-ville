@@ -3,20 +3,30 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class EquipeMunicipale {
-    private Elu elu;
-    private Evaluateur evalEnv;
-    private Evaluateur evalSoc;
-    private Evaluateur evalEco;
-    private List<Projet> projets;
-    private List<Expert> experts;
+    private final Elu elu;
+    private final Evaluateur evalEnv;
+    private final Evaluateur evalSoc;
+    private final Evaluateur evalEco;
+    private final List<Expert> experts;
+    private final List<Projet> projetsEtudies;
 
     public EquipeMunicipale(Elu elu, Evaluateur evalEnv, Evaluateur evalSoc, Evaluateur evalEco) {
+        if (evalEnv.getSpecialisation() != TypeCout.ENVIRONNEMENTAL) {
+            throw new IllegalArgumentException("L'évaluateur environnemental doit être spécialisé en coût environnemental");
+        }
+        if (evalSoc.getSpecialisation() != TypeCout.SOCIAL) {
+            throw new IllegalArgumentException("L'évaluateur social doit être spécialisé en coût social");
+        }
+        if (evalEco.getSpecialisation() != TypeCout.ECONOMIQUE) {
+            throw new IllegalArgumentException("L'évaluateur économique doit être spécialisé en coût économique");
+        }
+
         this.elu = elu;
         this.evalEnv = evalEnv;
         this.evalSoc = evalSoc;
         this.evalEco = evalEco;
-        projets=new ArrayList<>();
-        experts=new ArrayList<>();
+        this.experts = new ArrayList<>();
+        this.projetsEtudies = new ArrayList<>();
     }
 
     public void ajouterExpert(Expert expert) {
@@ -26,23 +36,34 @@ public class EquipeMunicipale {
         experts.add(expert);
     }
 
-    public List<Projet> getProjets() {
-        return new ArrayList<>(projets);
-    }
+    public void cycleSimulation() {
+        for (Expert expert : experts) {
+            Secteur secteurExpert = expert.getCompetences().get(0);
+            String titre = "Projet " + expert.getNom();
+            Projet projet = expert.proposerProjet(titre, "Description du " + titre, secteurExpert);
 
-    public List<Expert> getExperts() {
-        return new ArrayList<>(experts);
-    }
+            evalEnv.evaluer(projet);
+            evalSoc.evaluer(projet);
+            evalEco.evaluer(projet);
 
-    public void cycleSimulation(){
-        for ( Expert expert : experts){
-            Projet p= expert.proposerProjet("Projet "+ Math.random(), "Description", Secteur.SANTE);
-            evalEnv.evaluer(p);
-            evalSoc.evaluer(p);
-            evalEco.evaluer(p);
-            elu.evaluerBenefice(p);
-            projets.add(p);
+            elu.evaluerBenefice(projet);
+            projetsEtudies.add(projet);
         }
     }
 
+    public List<Projet> getProjetsEtudies() {
+        return new ArrayList<>(projetsEtudies);
+    }
+
+    @Override
+    public String toString() {
+        return "EquipeMunicipale{" +
+               "\n  Élu=" + elu +
+               "\n  Évaluateur Environnemental=" + evalEnv +
+               "\n  Évaluateur Social=" + evalSoc +
+               "\n  Évaluateur Économique=" + evalEco +
+               "\n  Experts=" + experts +
+               "\n  Projets étudiés=" + projetsEtudies +
+               "\n}";
+    }
 }

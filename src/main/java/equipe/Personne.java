@@ -15,6 +15,7 @@ public abstract class Personne {
         this.email = email;
     }
 
+
     public String getNom() {
         return nom;
     }
@@ -29,5 +30,10 @@ public abstract class Personne {
     }
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public String toString() {
+        return prenom + " " + nom;
     }
 }

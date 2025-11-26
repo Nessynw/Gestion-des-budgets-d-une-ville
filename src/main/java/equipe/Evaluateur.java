@@ -7,6 +7,7 @@ public class Evaluateur extends Personne implements IEvaluateur{
         super(nom,prenom,adresse,telephone,email);
         this.specialisation=specialisation;
     }
+
     @Override
     public void evaluer(Projet p) {
         double valeur = Math.random()*10000;
@@ -16,5 +17,9 @@ public class Evaluateur extends Personne implements IEvaluateur{
             case ENVIRONNEMENTAL -> p.setCoutEnvironnemental(valeur);
         }
 
+    }
+
+    public TypeCout getSpecialisation() {
+        return specialisation;
     }
 }

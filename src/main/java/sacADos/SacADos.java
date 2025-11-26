@@ -77,10 +77,11 @@ public class SacADos {
         dimension--;
     }
 
-    public void afficheSac(){
-        System.out.println("Nombres d'objets:"+dimension);
-        System.out.println("Budgets:"+Arrays.toString(budget));
-        System.out.println("Objets:"+objets.toString());
+    public void afficheSac() {
+        System.out.println("Budgets disponibles : " + Arrays.toString(budget));
+        System.out.println("Contenu du sac :");
+        for (Objet obj : objets) {
+            System.out.println(obj);
+        }
     }
-
 }

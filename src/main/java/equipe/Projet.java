@@ -48,6 +48,10 @@ public class Projet{
     }
     public void setBenefice(double benefice) {}
 
-
+    @Override
+    public String toString() {
+        return String.format("%s (%s) - Bénéfice: %.2f, Coûts: éco=%.2f, soc=%.2f, env=%.2f",
+            titre, secteur.getLibelle(), benefice, coutEconomique, coutSocial, coutEnvironnemental);
+    }
 
 }
