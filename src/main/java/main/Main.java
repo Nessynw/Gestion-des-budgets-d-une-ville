@@ -87,9 +87,10 @@ public class Main {
         sacParSecteurs.afficheSac();
         System.out.println("\n\n");
 
-
+        Scanner scanner=new Scanner(System.in);
         vs=new VersSacADos();
-        String nomfichier="C:/Users/Elena/OneDrive/Documents/Java/hp1.dat"; //chemin d'accès au fichier
+        System.out.println("Chemin d'accès au fichier de données");
+        String nomfichier=scanner.nextLine();
         SacADos sacFichier=vs.convertir(nomfichier);
         System.out.println("Affichage sac a dos du fichier:\n");
         sacFichier.afficheSac();
