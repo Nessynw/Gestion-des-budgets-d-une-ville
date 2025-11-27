@@ -1,6 +1,7 @@
 package main;
 import equipe.*;
 import sacADos.*;
+import solveur.glouton.GloutonAjoutSolver;
 import java.util.*;
 
 public class Main {
@@ -67,7 +68,46 @@ public class Main {
     System.out.println("\nÉquipe après simulation :");
     System.out.println(equipe);
 }
-    private static void testerSacADos() {}
-    private static void testerConversion() {}
 
+    private static void testerSacADos() {
+        // Création de quelques objets (nom, couts[], valeur)
+        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
+        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
+        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
+
+
+        List<Objet> objets = new ArrayList<>();
+        objets.add(obj1);
+        objets.add(obj2);
+        objets.add(obj3);
+
+        // Définition du budget disponible
+        int[] budget = new int[]{5, 5, 3};
+
+        // Création du sac à dos
+        SacADos sac = new SacADos(budget, objets);
+
+        // Création du solveur glouton (tri par valeur décroissante)
+        GloutonAjoutSolver solver = new GloutonAjoutSolver(
+                (o1, o2) -> o2.getUtilite() - o1.getUtilite()
+        );
+
+
+        // Résolution
+        List<Objet> solution = solver.resoudre(sac);
+
+        // Affichage des objets disponibles
+        System.out.println("Objets disponibles :");
+        for (Objet o : objets) {
+            System.out.println(o);
+        }
+
+        // Affichage de la solution trouvée
+        System.out.println("\nSolution trouvée par le solveur glouton :");
+        for (Objet o : solution) {
+            System.out.println(o);
+        }
+    }
+
+    private static void testerConversion() {}
 }
