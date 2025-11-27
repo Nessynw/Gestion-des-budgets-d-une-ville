@@ -1,11 +1,18 @@
 package sacADos;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Budget{
-    private int budgetTotal=0;
+    private int budgetTotal;
     private int[] budgetCouts;
     private int[] budgetSecteurs;
+
+    public Budget(){
+        budgetTotal =0;
+        budgetCouts=new int[3];
+        budgetSecteurs = new int[5];
+    }
 
     public Budget(int budget, int[] c, int[] s){
     if (c == null || s == null) {
@@ -28,15 +35,51 @@ public int[] getBudgetSecteurs(){
     return Arrays.copyOf(budgetSecteurs, budgetSecteurs.length);
 }
 
-    public void setBudgetCouts(int[] budgetCouts) {
+    public void setBudgetCouts(){//quand l'utilisateur entre le budget
+        Scanner scanner = new Scanner(System.in);
+        int[] bCouts=new int[3];
+        System.out.println("Budgets selon les coûts:\n");
+        System.out.println("Coût écomonique="); //en supposant qu'on met les couts dans cet ordre
+        bCouts[0]= scanner.nextInt();
+        System.out.println("\nCoût social=");
+        bCouts[1]= scanner.nextInt();
+        System.out.println("\nCoût environnemental=");
+        bCouts[2]= scanner.nextInt();
+        this.budgetCouts=bCouts;
+    }
+
+    public void setBudgetCouts(int[] budgetCouts) {//quand le budget est récupéré à partir d'un fichier
         this.budgetCouts = budgetCouts;
+    }
+
+    public void setBudgetSecteurs(){
+        Scanner scanner = new Scanner(System.in);
+        int[] bSecteurs =new int[5];
+        System.out.println("Budgets selon les secteurs:\n"); //en supposant qu'on met les secteurs dans cet ordre
+        System.out.println("Sport=");
+        bSecteurs[0]= scanner.nextInt();
+        System.out.println("\nSanté=");
+        bSecteurs[1]= scanner.nextInt();
+        System.out.println("\nEducation=");
+        bSecteurs[2]= scanner.nextInt();
+        System.out.println("\nCulture=");
+        bSecteurs[3]= scanner.nextInt();
+        System.out.println("\nAttractivité économique=");
+        bSecteurs[4]= scanner.nextInt();
+        this.budgetSecteurs= bSecteurs;
     }
 
     public void setBudgetSecteurs(int[] budgetSecteurs) {
         this.budgetSecteurs = budgetSecteurs;
     }
 
-    public void setBudgetTotal(int budgetTotal) {
+    public void setBudgetTotal(){ //quand l'utilisateur entre le budget
+        System.out.println("Budget total:\n");
+        Scanner scanner = new Scanner(System.in);
+        this.budgetTotal=scanner.nextInt();
+    }
+
+    public void setBudgetTotal(int budgetTotal) {//quand le budget est récupéré à partir d'un fichier
         this.budgetTotal = budgetTotal;
     }
 
