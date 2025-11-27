@@ -6,48 +6,42 @@ public class Objet{
     private int utilite;
     private int[] couts;
 
-    public Objet(String nom, int utilite) {
-    if (nom == null) {
-        throw new IllegalArgumentException("Le nom ne peut pas être null");
+    public Objet(String nom,int utilite,int[] couts){
+        this.nom=nom;
+        this.utilite=utilite;
+        this.couts=couts;
     }
-    this.nom = nom;
-    this.utilite = utilite;
-    this.couts = new int[0];
-}
 
-public Objet(String nom, int utilite, int[] couts) {
-    if (nom == null) {
-        throw new IllegalArgumentException("Le nom ne peut pas être null");
+    public Objet(String nom,int utilite){
+        this.nom=nom;
+        this.utilite=utilite;
     }
-    if (couts == null) {
-        throw new IllegalArgumentException("Le tableau des coûts ne peut pas être null");
-    }
-    this.nom = nom;
-    this.utilite = utilite;
-    this.couts = Arrays.copyOf(couts, couts.length);
-}
 
     public int getUtilite() {
         return utilite;
     }
 
     public int[] getCouts() {
-    return Arrays.copyOf(couts, couts.length); // Retourne une copie
-}
+        return couts;
+    }
 
-    public void addCout(int val) {
-        int[] c = Arrays.copyOf(couts, couts.length + 1);
-        c[couts.length] = val;
-        couts = c;
+    public void setCouts(int[] couts) {
+        this.couts = couts;
+    }
+
+    public void addCout(int val){
+        int[] c=new int[couts.length+1];
+        for(int i=0;i< couts.length;i++){
+            c[i]=couts[i];
+        }
+        c[couts.length]=val;
+        couts=c;
     }
 
     @Override
     public String toString(){
-        return nom+"(utilité = "+utilite+")(coûts ="+Arrays.toString(couts)+")";
+        return nom+"(utilité="+utilite+")(coûts="+Arrays.toString(couts)+")";
     }
 
-    public String getNom() {
-        return nom;
-    }
 }
 

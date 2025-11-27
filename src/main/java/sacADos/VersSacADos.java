@@ -1,6 +1,5 @@
 package sacADos;
 import java.io.*;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import equipe.Projet;
@@ -58,8 +57,8 @@ public class VersSacADos {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(namefile)))) {
-            String line = reader.readLine(); //premiere ligne du fichier
-            String[] valeurs = line.split(" ");
+            String line = reader.readLine().trim(); //premiere ligne du fichier en supprimant les tabulations
+            String[] valeurs = line.split("\\s+");
             if (valeurs.length < 2) {
                 throw new IOException("Format de fichier invalide : il manque des informations sur la première ligne");
             }
@@ -67,53 +66,81 @@ public class VersSacADos {
             int nbBudgets = Integer.parseInt(valeurs[1]);
             int valOptimale = (valeurs.length == 3) ? Integer.parseInt(valeurs[2]) : 0;
 
-            List<Objet> objets = new ArrayList<>();
-
-            //lignes des utilites de chaque objet
-            int i = 0;
-            while (i < nbObjets) {
+            //on lit les utilités
+            List<Integer> utilites = new ArrayList<>();
+            while (utilites.size() < nbObjets) {
                 line = reader.readLine();
-                String[] utilites = line.split(" ");
-                for (int j = 0; j < utilites.length; j++) {
-                    int val = Integer.parseInt(utilites[j]);
-                    Objet o = new Objet("Objet_" + i, val); // Ajout d'un nom significatif
-                    objets.add(o);
+                if(line == null){
+                    throw new IOException("Fin de fichier inattendue pour utilités");
                 }
-                i += utilites.length;
+                line = line.trim();
+                if (line.isEmpty()){
+                    continue;
+                }
+
+                for (String s : line.split("\\s+")) {
+                        utilites.add(Integer.parseInt(s));
+                        if (utilites.size() == nbObjets) {
+                            break;
+                        }
+                }
             }
 
-            //lire les couts pour chaque objet
-            i = 0;
-            int l = 0;
-            List<String> coutslus = new ArrayList<>();
-            while (i < nbObjets) {
-                do {
-                    line = reader.readLine();
-                    if (line == null) {
-                        throw new IOException("Fin de fichier inattendue");
-                    }
-                    String[] couts2 = line.split(" ");
-                    Collections.addAll(coutslus, couts2);
-                    l += couts2.length;
-                } while (l < nbBudgets);
+            //on attribue chaque utilité à un objet
+            List<Objet> objets = new ArrayList<>();
+            for (int i = 0; i < nbObjets; i++) {
+                objets.add(new Objet("Objet" + i, utilites.get(i), new int[nbBudgets]));
+            }
 
-                Objet o = objets.get(i);
-                for (int j = 0; j < nbBudgets; j++) {
-                    int val = Integer.parseInt(coutslus.get(0));
-                    o.addCout(val);
-                    coutslus.remove(0);
+
+            //lire tous les couts
+            List<Integer> coutslus = new ArrayList<>();
+            while ((coutslus.size() < nbObjets*nbBudgets)&&((line=reader.readLine())!=null)) {
+                line = line.trim();//pour supprimer les tabulations
+                if(line.isEmpty()){
+                    continue;
                 }
+                String[] couts2 = line.split("\\s+");//\\s+ sont \n,\t,\r
+                for (String s : couts2) {
+                    coutslus.add(Integer.parseInt(s));
+                    if (coutslus.size() == nbBudgets * nbObjets) {
+                        break;
+                    }
+                }
+            }
 
-                l -= nbBudgets;
+            if (coutslus.size() < nbObjets*nbBudgets) {
+                throw new IOException("Fin de fichier inattendue pour les coûts");
+            }
+
+
+            //attribuer les coûts pour chaque objet
+            int i=0;
+            while(i<nbObjets){
+                Objet o = objets.get(i);
+                for(int j=0;j<nbBudgets;j++){
+                    int val = coutslus.get(i+nbObjets*j);
+                    if(j==0){ //pour le premier coût
+                        int[] premier=new int[]{val};
+                        o.setCouts(premier);
+                    }
+                    else{
+                        o.addCout(val);
+                    }
+                }
                 i++;
             }
 
             //lire les budgets
             line = reader.readLine();
             if (line == null) {
-                throw new IOException("Fin de fichier inattendue");
+                throw new IOException("Fin de fichier inattendue pour les budgets");
             }
-            valeurs = line.split(" ");
+            line=line.trim();
+            valeurs = line.split("\\s+");
+            if (valeurs.length != nbBudgets) {
+                throw new IOException("Nombre incorrect de budgets dans le fichier");
+            }
             int[] budgets = new int[valeurs.length];
             for (i = 0; i < valeurs.length; i++) {
                 budgets[i] = Integer.parseInt(valeurs[i]);

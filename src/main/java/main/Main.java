@@ -39,7 +39,7 @@ public class Main {
         System.out.println("4. Quitter");
         System.out.print("\nVotre choix : ");
     }
-    private static void testerEquipeMunicipale() {
+    private static EquipeMunicipale testerEquipeMunicipale() {
     Evaluateur evalEnv = new Evaluateur("A", "B", "HOME ", "0123456789", "A.B@mail.com", TypeCout.ENVIRONNEMENTAL);
     Evaluateur evalSoc = new Evaluateur("C", "D", "HOUSE ", "0123456788", "C.D@mail.com", TypeCout.SOCIAL);
     Evaluateur evalEco = new Evaluateur("E", "F", "MAISON ", "0123456787", "E.F@mail.com", TypeCout.ECONOMIQUE);
@@ -66,8 +66,34 @@ public class Main {
     
     System.out.println("\nÉquipe après simulation :");
     System.out.println(equipe);
+    return equipe;
 }
-    private static void testerSacADos() {}
+
+    private static void testerSacADos() {
+        EquipeMunicipale equipe=testerEquipeMunicipale();
+        Budget budget=new Budget();
+        budget.setBudgetTotal();
+        budget.setBudgetCouts();
+        budget.setBudgetSecteurs();
+        VersSacADos vs=new VersSacADos();
+
+        SacADos sacParCouts=vs.conversionParCouts(budget,equipe.getProjetsEtudies());
+        System.out.println("Affichage sac a dos par coûts:\n");
+        sacParCouts.afficheSac();
+        System.out.println("\n\n");
+
+        SacADos sacParSecteurs=vs.conversionParSecteur(budget,equipe.getProjetsEtudies());
+        System.out.println("Affichage sac a dos par secteurs:\n");
+        sacParSecteurs.afficheSac();
+        System.out.println("\n\n");
+
+
+        vs=new VersSacADos();
+        String nomfichier="C:/Users/Elena/OneDrive/Documents/Java/hp1.dat"; //chemin d'accès au fichier
+        SacADos sacFichier=vs.convertir(nomfichier);
+        System.out.println("Affichage sac a dos du fichier:\n");
+        sacFichier.afficheSac();
+    }
     private static void testerConversion() {}
 
 }
