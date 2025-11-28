@@ -22,12 +22,11 @@ public class Main {
                 case 2:
                     testerSacADos();
                     break;
-                case 3:
-                    testerConversion();
+                case 3 :
+                    testerGloutonAjout();
                     break;
-                case 4 : testerGloutonAjout();
-                break;
-                case 5: testerGloutonRetrait();
+                case 4:
+                    testerGloutonRetrait();
                     break;
                 case 6 :
                     break;
@@ -55,12 +54,12 @@ public class Main {
         System.out.print("\nVotre choix : ");
     }
 
-    private static void testerEquipeMunicipale() {
+    private static EquipeMunicipale testerEquipeMunicipale() {
         Evaluateur evalEnv = new Evaluateur("A", "B", "HOME ", "0123456789", "A.B@mail.com", TypeCout.ENVIRONNEMENTAL);
         Evaluateur evalSoc = new Evaluateur("C", "D", "HOUSE ", "0123456788", "C.D@mail.com", TypeCout.SOCIAL);
         Evaluateur evalEco = new Evaluateur("E", "F", "MAISON ", "0123456787", "E.F@mail.com", TypeCout.ECONOMIQUE);
         Elu elu = new Elu("G", "H", "Mairie", "0123456786", "D@ville.fr");
-     //tester les excepitons
+        //tester les excepitons
 //      Evaluateur evalEnv = new Evaluateur("A", "B", "Home", "0123", "a@mail.com", TypeCout.ECONOMIQUE);
 //
 //      EquipeMunicipale equipe = new EquipeMunicipale(elu, evalEnvIncorrect, evalSoc, evalEco);
@@ -88,56 +87,39 @@ public class Main {
 
         System.out.println("\nÉquipe après simulation :");
         System.out.println(equipe);
+        return equipe;
     }
 
     private static void testerSacADos() {
-        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
-        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
-        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
+        EquipeMunicipale equipe=testerEquipeMunicipale();
+        Budget budget=new Budget();
+        budget.setBudgetTotal();
+        budget.setBudgetCouts();
+        budget.setBudgetSecteurs();
+        VersSacADos vs=new VersSacADos();
 
-        List<Objet> objets = new ArrayList<>();
-        objets.add(obj1);
-        objets.add(obj2);
-        objets.add(obj3);
 
-        int[] budget = new int[]{5, 5, 3};
-        SacADos sac = new SacADos(budget, objets);
+        SacADos sacParCouts=vs.conversionParCouts(budget,equipe.getProjetsEtudies());
+        System.out.println("Affichage sac a dos par coûts:\n");
+        sacParCouts.afficheSac();
+        System.out.println("\n\n");
 
-        GloutonAjoutSolver solver = new GloutonAjoutSolver(
-                (o1, o2) -> o2.getUtilite() - o1.getUtilite()
-        );
 
-        List<Objet> solution = solver.resoudre(sac);
+        SacADos sacParSecteurs=vs.conversionParSecteur(budget,equipe.getProjetsEtudies());
+        System.out.println("Affichage sac a dos par secteurs:\n");
+        sacParSecteurs.afficheSac();
+        System.out.println("\n\n");
 
-        System.out.println("Objets disponibles :");
-        for (Objet o : objets) {
-            System.out.println(o);
-        }
 
-        System.out.println("\nSolution trouvée par le solveur glouton :");
-        for (Objet o : solution) {
-            System.out.println(o);
-        }
+        Scanner scanner=new Scanner(System.in);
+        vs=new VersSacADos();
+        System.out.println("Chemin d'accès au fichier de données");
+        String nomfichier=scanner.nextLine();
+        SacADos sacFichier=vs.convertir(nomfichier);
+        System.out.println("Affichage sac a dos du fichier:\n");
+        sacFichier.afficheSac();
     }
 
-    private static void testerConversion() {
-        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
-        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
-        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
-        List<Objet> objets = new ArrayList<>();
-        objets.add(obj1);
-        objets.add(obj2);
-        objets.add(obj3);
-
-        int[] budget = new int[]{5, 5, 3};
-
-        SacADos sac = new SacADos(budget, objets);
-        System.out.println("Budget: " + Arrays.toString(sac.getBudget()));
-        System.out.println("Objets dans le sac:");
-        for (Objet o : sac.getObjets()) {
-            System.out.println("  - " + o);
-        }
-    }
 
     private static void testerGloutonAjout() {
         Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
