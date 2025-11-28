@@ -59,12 +59,12 @@ public class EquipeMunicipale {
     @Override
     public String toString() {
         return "EquipeMunicipale{" +
-               "\n  Élu=" + elu +
-               "\n  Évaluateur Environnemental=" + evalEnv +
-               "\n  Évaluateur Social=" + evalSoc +
-               "\n  Évaluateur Économique=" + evalEco +
-               "\n  Experts=" + experts +
+                "\n  Élu=" + elu +
+                "\n  Évaluateur Environnemental=" + evalEnv +
+                "\n  Évaluateur Social=" + evalSoc +
+                "\n  Évaluateur Économique=" + evalEco +
+                "\n  Experts=" + experts +
                 "\n  Projets étudiés=" + experts +
-               "\n}";
+                "\n}";
     }
 }
