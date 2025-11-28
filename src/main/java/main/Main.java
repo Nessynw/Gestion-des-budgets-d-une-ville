@@ -28,7 +28,7 @@ public class Main {
                 case 4:
                     testerGloutonRetrait();
                     break;
-                case 6 :
+                case 5:
                     break;
                 default:
                     System.out.println("Option invalide");
@@ -47,10 +47,9 @@ public class Main {
         System.out.println("\n MENU");
         System.out.println("1. Tester l'équipe municipale");
         System.out.println("2. Tester le sac à dos");
-        System.out.println("3. Tester la conversion Projets → SacADos");
-        System.out.println("4. Tester le Glouton Ajout");
-        System.out.println("5. Tester le Glouton Retrait");
-        System.out.println("6. Quitter");
+        System.out.println("3. Tester le Glouton Ajout");
+        System.out.println("4. Tester le Glouton Retrait");
+        System.out.println("5. Quitter");
         System.out.print("\nVotre choix : ");
     }
 
