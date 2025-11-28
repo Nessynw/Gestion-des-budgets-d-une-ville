@@ -8,7 +8,6 @@ public class EquipeMunicipale {
     private final Evaluateur evalSoc;
     private final Evaluateur evalEco;
     private final List<Expert> experts;
-    private final List<Projet> projetsEtudies;
 
     public EquipeMunicipale(Elu elu, Evaluateur evalEnv, Evaluateur evalSoc, Evaluateur evalEco) {
         if (evalEnv.getSpecialisation() != TypeCout.ENVIRONNEMENTAL) {
@@ -26,7 +25,6 @@ public class EquipeMunicipale {
         this.evalSoc = evalSoc;
         this.evalEco = evalEco;
         this.experts = new ArrayList<>();
-        this.projetsEtudies = new ArrayList<>();
     }
 
     public void ajouterExpert(Expert expert) {
@@ -47,13 +45,9 @@ public class EquipeMunicipale {
             evalEco.evaluer(projet);
 
             elu.evaluerBenefice(projet);
-            projetsEtudies.add(projet);
         }
     }
 
-    public List<Projet> getProjetsEtudies() {
-        return new ArrayList<>(projetsEtudies);
-    }
 
     @Override
     public String toString() {
@@ -63,7 +57,6 @@ public class EquipeMunicipale {
                "\n  Évaluateur Social=" + evalSoc +
                "\n  Évaluateur Économique=" + evalEco +
                "\n  Experts=" + experts +
-               "\n  Projets étudiés=" + projetsEtudies +
                "\n}";
     }
 }

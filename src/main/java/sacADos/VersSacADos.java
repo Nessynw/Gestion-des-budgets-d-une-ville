@@ -12,10 +12,8 @@ public class VersSacADos {
         if (budget == null || projets == null) {
             throw new IllegalArgumentException("Le budget et la liste des projets ne peuvent pas être null");
         }
-        //Récupèrer les budgets
         int[] tabBudgets = budget.getBudgetCouts();
         
-        //on convertit chaque projet en objet
         List<Objet> objets = new ArrayList<>();
         for (Projet p : projets) {
             int[] couts = new int[]{
@@ -35,7 +33,6 @@ public class VersSacADos {
         throw new IllegalArgumentException("Le budget et la liste des projets ne peuvent pas être null");
     }
     
-    // Récupère les budgets par secteur
     int[] tabBudgets = budget.getBudgetSecteurs();
     
     List<Objet> objets = new ArrayList<>();
@@ -96,7 +93,7 @@ public class VersSacADos {
             //lire tous les couts
             List<Integer> coutslus = new ArrayList<>();
             while ((coutslus.size() < nbObjets*nbBudgets)&&((line=reader.readLine())!=null)) {
-                line = line.trim();//pour supprimer les tabulations
+                line = line.trim();//pr supprimer les tabulations
                 if(line.isEmpty()){
                     continue;
                 }

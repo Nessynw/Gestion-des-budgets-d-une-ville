@@ -1,10 +1,7 @@
 package solveur.glouton;
 
-import sacADos.Objet;
-import sacADos.SacADos;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import sacADos.*;
+import java.util.*;
 
 public class GloutonAjoutSolver {
 
@@ -15,15 +12,10 @@ public class GloutonAjoutSolver {
     }
 
     public List<Objet> resoudre(SacADos instance) {
-
         List<Objet> objets = new ArrayList<>(instance.getObjets());
-
-        // c pour trier ici
         objets.sort(comparateur);
 
         List<Objet> solution = new ArrayList<>();
-
-        //jai du  récupérer le budget avec getBudget() ici
         int[] budgetRestant = instance.getBudget().clone();
 
         for (Objet o : objets) {
@@ -40,16 +32,16 @@ public class GloutonAjoutSolver {
         int[] couts = o.getCouts();
         for (int i = 0; i < couts.length; i++) {
             if (couts[i] > budget[i]) {
-                return false; // si on depasse le budget on peut pas ajouter
+                return false;
             }
         }
         return true;
     }
+
 
     private void retirerCouts(Objet o, int[] budget) {
         int[] couts = o.getCouts();
         for (int i = 0; i < couts.length; i++) {
             budget[i] -= couts[i];
         }
-    }
-}
+    }}

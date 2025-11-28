@@ -10,7 +10,7 @@ public class Evaluateur extends Personne implements IEvaluateur{
 
     @Override
     public void evaluer(Projet p) {
-        double valeur = Math.random()*10000;
+        double valeur = Math.random()*1000;
         switch (specialisation){
             case SOCIAL -> p.setCoutSocial(valeur);
             case ECONOMIQUE -> p.setCoutEconomique(valeur);

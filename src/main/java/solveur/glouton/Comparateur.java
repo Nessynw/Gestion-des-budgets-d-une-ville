@@ -1,13 +1,24 @@
 package solveur.glouton;
 
-import sacADos.Objet;
+import sacADos.*;
+
 import java.util.Comparator;
 
 
-public class Comparateur {
-    public int compare(Objet o1, Objet o2) {
-        // ici jai trié par utilite decroissante ( en gros le plus utile)
-        return o2.getUtilite() - o1.getUtilite();
+public class Comparateur{
+
+        public static class ParUtiliteDecroissante implements Comparator<Objet> {
+            @Override
+            public int compare(Objet o1, Objet o2) {
+                return o2.getUtilite() - o1.getUtilite();  // décroissant
+            }
+        }
+
+        public static class ParUtiliteCroissante implements Comparator<Objet> {
+            @Override
+            public int compare(Objet o1, Objet o2) {
+                return o1.getUtilite() - o2.getUtilite();  // croissant
+            }
+        }
     }
-}
 
