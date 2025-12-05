@@ -2,7 +2,8 @@ package equipe;
 
 public class Evaluateur extends Personne implements IEvaluateur{
 
-    private TypeCout specialisation;
+    private final TypeCout specialisation;
+
     public Evaluateur(String nom, String prenom, String adresse, String telephone, String email, TypeCout specialisation) {
         super(nom,prenom,adresse,telephone,email);
         this.specialisation=specialisation;
