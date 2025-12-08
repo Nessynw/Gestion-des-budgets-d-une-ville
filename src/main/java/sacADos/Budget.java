@@ -86,4 +86,21 @@ public int[] getBudgetSecteurs(){
     public void afficheBudget(){
         System.out.println("Le budget restant est "+budgetTotal);
     }
+
+    public boolean budgetCorrect(){
+        int sommeCouts=budgetCouts[0]+budgetCouts[1]+budgetCouts[2];
+        if(sommeCouts!=budgetTotal){
+            System.out.println("Le budget total ne correspond pas aux budgets de chaque coûts");
+            return false;
+        }
+
+        int sommeSecteurs =budgetSecteurs[0]+budgetSecteurs[1]+budgetSecteurs[2];
+        if(sommeSecteurs !=budgetTotal){
+            System.out.println("Le budget total ne correspond pas aux budgets de chaque secteurs");
+            return false;
+        }
+
+        System.out.println("Aucune erreur lors de la saisie des budgets!");
+        return true;
+    }
 }
