@@ -92,9 +92,11 @@ public class Main {
     private static void testerSacADos() {
         EquipeMunicipale equipe=testerEquipeMunicipale();
         Budget budget=new Budget();
-        budget.setBudgetTotal();
-        budget.setBudgetCouts();
-        budget.setBudgetSecteurs();
+        do{
+            budget.setBudgetTotal();
+            budget.setBudgetCouts();
+            budget.setBudgetSecteurs();
+        }while(budget.budgetCorrect());
         VersSacADos vs=new VersSacADos();
 
 

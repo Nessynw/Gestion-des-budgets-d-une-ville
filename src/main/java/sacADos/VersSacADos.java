@@ -25,7 +25,7 @@ public class VersSacADos {
         }
         
         return new SacADos(tabBudgets, objets);
-}
+    }
 
     //selon le secteur
     public SacADos conversionParSecteur(Budget budget, List<Projet> projets) {
