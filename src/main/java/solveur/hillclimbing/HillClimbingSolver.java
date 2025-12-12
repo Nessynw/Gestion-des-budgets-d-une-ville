@@ -79,14 +79,14 @@ public class HillClimbingSolver {
         return courante;
     }
     private Solution trouverMeilleur(List<Solution> voisins) {
-        Solution meilleur = voisins.get(0);
-        double meilleureValeur = calculerUtilite(meilleur);
-        meilleur.setValeur(meilleureValeur);
-
+        Solution meilleur = voisins.get(0); //On suppose que le premier voisin est le meilleur
+        double meilleureValeur = calculerUtilite(meilleur);//on calcule son utilité
+        meilleur.setValeur(meilleureValeur);//on sauvegarde la valeur dans Solution car "Solution meilleur"
+        //je parcours le reste des voisins
         for (int i = 1; i < voisins.size(); i++) {
-            Solution voisin = voisins.get(i);
-            double valeur = calculerUtilite(voisin);
-            voisin.setValeur(valeur);
+            Solution voisin = voisins.get(i); //on récup chque voisin
+            double valeur = calculerUtilite(voisin);//on recalcule l'utilite de chaque voisin
+            voisin.setValeur(valeur); //et on le met à jour dans voisin
 
             if (valeur > meilleureValeur) {
                 meilleur = voisin;

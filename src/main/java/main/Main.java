@@ -63,10 +63,6 @@ public class Main {
         Evaluateur evalSoc = new Evaluateur("C", "D", "HOUSE ", "0123456788", "C.D@mail.com", TypeCout.SOCIAL);
         Evaluateur evalEco = new Evaluateur("E", "F", "MAISON ", "0123456787", "E.F@mail.com", TypeCout.ECONOMIQUE);
         Elu elu = new Elu("G", "H", "Mairie", "0123456786", "D@ville.fr");
-        //tester les excepitons
-//      Evaluateur evalEnv = new Evaluateur("A", "B", "Home", "0123", "a@mail.com", TypeCout.ECONOMIQUE);
-//
-//      EquipeMunicipale equipe = new EquipeMunicipale(elu, evalEnvIncorrect, evalSoc, evalEco);
 
 
         EquipeMunicipale equipe = new EquipeMunicipale(elu, evalEnv, evalSoc, evalEco);
@@ -218,7 +214,7 @@ public class Main {
         Solution solutionInitiale = new Solution(indices);
 
         // Hill Climbing
-        HillClimbingSolver hillClimbing = new HillClimbingSolver(sac, 2);
+        HillClimbingSolver hillClimbing = new HillClimbingSolver(sac, 1);    //t=1 pour une execution plus rapide, MAIS résultat moins optimal :/
         Solution solutionFinale = hillClimbing.resoudre(solutionInitiale);
 
         System.out.println("Solution après Hill Climbing :");

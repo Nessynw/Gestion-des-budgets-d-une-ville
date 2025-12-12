@@ -69,8 +69,8 @@ public class GenerateurVoisinsBas implements IGenerateurVoisins {
         List<Integer> aRetirer = new ArrayList<>(objetsActuels);
         List<Integer> aAjouter = new ArrayList<>(objetsDisponibles);
 
-        for (int nbRetrait = 1; nbRetrait <= t && nbRetrait <= aRetirer.size(); nbRetrait++) {
-            for (int nbAjout = 1; nbAjout <= t && nbAjout <= aAjouter.size(); nbAjout++) {
+        for (int nbRetrait = 1; nbRetrait <= t; nbRetrait++) {
+            for (int nbAjout = 1; nbAjout <= t - nbRetrait; nbAjout++) {
                 int finalNbAjout = nbAjout;
 
                 genererCombinaisons(aRetirer, nbRetrait, retraits -> {

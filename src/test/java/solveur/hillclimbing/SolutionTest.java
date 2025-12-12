@@ -17,7 +17,6 @@ public class SolutionTest {
      * à faire avant chaque test*/
     @BeforeEach
     public void setUp() {
-        // Créer 3 objets simples
         Objet obj0 = new Objet("obj0", 5, new int[]{10});
         Objet obj1 = new Objet("obj1", 8, new int[]{15});
         Objet obj2 = new Objet("obj2", 12, new int[]{20});
