@@ -1,9 +1,10 @@
 package main;
 
 import equipe.*;
-import sacADos.*;
+import sacados.*;
 import solveur.glouton.*;
 import java.util.*;
+import solveur.hillclimbing.*;
 
 public class Main {
 
@@ -29,18 +30,21 @@ public class Main {
                     testerGloutonRetrait();
                     break;
                 case 5:
+                    testerHillClimbing();
+                    break;
+                case 6:
+                    System.out.println("Au revoir !");
                     break;
                 default:
                     System.out.println("Option invalide");
             }
 
-            if (choix >= 1 && choix <= 4) {
+            if (choix >= 1 && choix <= 5) {
                 System.out.println("\nAppuyez sur Entrée pour continuer");
-                scanner.nextLine();
                 scanner.nextLine();
             }
 
-        } while (choix != 5);
+        } while (choix != 6);
     }
 
     private static void afficherMenu() {
@@ -49,7 +53,8 @@ public class Main {
         System.out.println("2. Tester le sac à dos");
         System.out.println("3. Tester le Glouton Ajout");
         System.out.println("4. Tester le Glouton Retrait");
-        System.out.println("5. Quitter");
+        System.out.println("5. Tester le Hill Climbing");
+        System.out.println("6. Quitter");
         System.out.print("\nVotre choix : ");
     }
 
@@ -149,14 +154,12 @@ public class Main {
     }
 
     private static void testerGloutonRetrait() {
-
         Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
         Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
         Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
-        Objet obj4 = new Objet("Projet D", 5, new int[]{4, 1, 2});
 
         List<Objet> objets = new ArrayList<>();
-        objets.add(obj1); objets.add(obj2); objets.add(obj3); objets.add(obj4);
+        objets.add(obj1); objets.add(obj2); objets.add(obj3);
 
         int[] budget = new int[]{5, 5, 5};
         SacADos sac = new SacADos(budget, objets);
@@ -171,4 +174,48 @@ public class Main {
             System.out.println(" - " + o);
         }
     }
+
+    private static void testerHillClimbing() {
+        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
+        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
+        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
+        Objet obj4 = new Objet("Projet D", 5, new int[]{4, 1, 2});
+
+        List<Objet> objets = new ArrayList<>();
+        objets.add(obj1);
+        objets.add(obj2);
+        objets.add(obj3);
+        objets.add(obj4);
+
+        int[] budget = new int[]{5, 5, 5};
+        SacADos sac = new SacADos(budget, objets);
+
+        //Obtenir la solution gloutonne initiale
+        GloutonAjoutSolver glouton = new GloutonAjoutSolver(
+                (o1, o2) -> o2.getUtilite() - o1.getUtilite()
+        );
+        List<Objet> objetsGloutons = glouton.resoudre(sac);
+
+        //Convertir en Solution (Set d'indices)
+        Set<Integer> indices = new HashSet<>();
+        for (Objet obj : objetsGloutons) {
+            int indice = sac.getObjets().indexOf(obj);
+            indices.add(indice);
+        }
+        Solution solutionInitiale = new Solution(indices);
+
+        // Hill Climbing
+        HillClimbingSolver hillClimbing = new HillClimbingSolver(sac, 2);
+        Solution solutionFinale = hillClimbing.resoudre(solutionInitiale);
+
+        System.out.println("Solution après Hill Climbing :");
+        System.out.println("Utilité : " + solutionFinale.getValeur());
+        System.out.println("Itérations : " + hillClimbing.getIterations());
+        System.out.println("Temps : " + hillClimbing.getTempsExecution() + " ms");
+        System.out.println("Objets sélectionnés :");
+        for (int indice : solutionFinale.getObjets()) {
+            System.out.println("  - " + sac.getObjets().get(indice));
+        }
+    }
+
 }

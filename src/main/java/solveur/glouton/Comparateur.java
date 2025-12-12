@@ -1,6 +1,6 @@
 package solveur.glouton;
 
-import sacADos.*;
+import sacados.*;
 
 import java.util.Comparator;
 

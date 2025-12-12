@@ -1,4 +1,4 @@
-package sacADos;
+package sacados;
 import java.util.Arrays;
 
 public class Objet{
@@ -37,6 +37,7 @@ public class Objet{
         c[couts.length]=val;
         couts=c;
     }
+
 
     @Override
     public String toString(){
