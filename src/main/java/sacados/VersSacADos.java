@@ -53,7 +53,12 @@ public class VersSacADos {
             throw new IllegalArgumentException("Le nom du fichier ne peut pas être null");
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(namefile)))) {
+        InputStream input = getClass().getResourceAsStream("/"+namefile);
+        if (input == null) {
+            throw new IllegalArgumentException("Le fichier n'a pas été trouvé dans les ressources");
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
             String line = reader.readLine().trim(); //premiere ligne du fichier en supprimant les tabulations
             String[] valeurs = line.split("\\s+");
             if (valeurs.length < 2) {

@@ -26,9 +26,11 @@ public class Budget{
     public int[] getBudgetCouts(){
     return Arrays.copyOf(budgetCouts, budgetCouts.length);//j'ai fais en sorte qu'on retourne des copies ici pour éviter de compromettre l'encapsulation
 }
+
     public int[] getBudgetSecteurs(){
     return Arrays.copyOf(budgetSecteurs, budgetSecteurs.length);
 }
+
     public void setBudgetCouts(){//quand l'utilisateur entre le budget
         Scanner scanner = new Scanner(System.in);
         int[] bCouts=new int[3];
@@ -41,7 +43,8 @@ public class Budget{
         bCouts[2]= scanner.nextInt();
         this.budgetCouts=bCouts;
     }
-    public void setBudgetCouts(int[] budgetCouts) {//quand le budget est récupéré à partir d'un fichier
+
+    public void setBudgetCouts(int[] budgetCouts) {//quand le budget est récupéré à partir d'un fichier ou pour les tests junit
         this.budgetCouts = budgetCouts;
     }
     public void setBudgetSecteurs(){
@@ -74,20 +77,29 @@ public class Budget{
     public void afficheBudget(){
         System.out.println("Le budget restant est "+budgetTotal);
     }
+
+    public void saisieBudget(){
+        do{
+            this.setBudgetTotal();
+            this.setBudgetCouts();
+            this.setBudgetSecteurs();
+        }while(!this.budgetCorrect());
+    }
+
     public boolean budgetCorrect(){
         int sommeCouts=budgetCouts[0]+budgetCouts[1]+budgetCouts[2];
+        int sommeSecteurs =budgetSecteurs[0]+budgetSecteurs[1]+budgetSecteurs[2]+budgetSecteurs[3]+budgetSecteurs[4];
         if(sommeCouts!=budgetTotal){
-            System.out.println("Le budget total ne correspond pas aux budgets de chaque coûts");
+            System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
             return false;
         }
-
-        int sommeSecteurs =budgetSecteurs[0]+budgetSecteurs[1]+budgetSecteurs[2];
-        if(sommeSecteurs !=budgetTotal){
-            System.out.println("Le budget total ne correspond pas aux budgets de chaque secteurs");
+        else if(sommeSecteurs !=budgetTotal){
+            System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
             return false;
         }
-
-        System.out.println("Aucune erreur lors de la saisie des budgets!");
-        return true;
+        else{
+            System.out.println("Aucune erreur lors de la saisie des budgets!");
+            return true;
+        }
     }
 }

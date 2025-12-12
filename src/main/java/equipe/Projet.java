@@ -46,7 +46,9 @@ public class Projet{
     public double getBenefice() {
         return benefice;
     }
-    public void setBenefice(double benefice) {}
+    public void setBenefice(double benefice) {
+        this.benefice=benefice;
+    }
 
     @Override
     public String toString() {

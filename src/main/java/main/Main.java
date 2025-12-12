@@ -94,36 +94,49 @@ public class Main {
         return equipe;
     }
 
+
     private static void testerSacADos() {
         EquipeMunicipale equipe=testerEquipeMunicipale();
-        Budget budget=new Budget();
-        do{
-            budget.setBudgetTotal();
-            budget.setBudgetCouts();
-            budget.setBudgetSecteurs();
-        }while(budget.budgetCorrect());
-        VersSacADos vs=new VersSacADos();
-
-
-        SacADos sacParCouts=vs.conversionParCouts(budget,equipe.getProjetsEtudies());
-        System.out.println("Affichage sac a dos par coûts:\n");
-        sacParCouts.afficheSac();
-        System.out.println("\n\n");
-
-
-        SacADos sacParSecteurs=vs.conversionParSecteur(budget,equipe.getProjetsEtudies());
-        System.out.println("Affichage sac a dos par secteurs:\n");
-        sacParSecteurs.afficheSac();
-        System.out.println("\n\n");
-
 
         Scanner scanner=new Scanner(System.in);
-        vs=new VersSacADos();
-        System.out.println("Chemin d'accès au fichier de données");
-        String nomfichier=scanner.nextLine();
-        SacADos sacFichier=vs.convertir(nomfichier);
-        System.out.println("Affichage sac a dos du fichier:\n");
-        sacFichier.afficheSac();
+        int choix;
+        do{
+            System.out.println("1.Entrer les données depuis le clavier");
+            System.out.println("2.Entrer les données depuis un fichier");
+            System.out.println("Votre choix(1 ou 2):");
+            choix=scanner.nextInt();
+        }while(choix<1||choix>2);
+
+        VersSacADos vs=new VersSacADos();
+
+        if(choix==1){ //teste conversionParCouts et ParSecteurs
+            Budget budget=new Budget();
+            budget.saisieBudget();
+
+            SacADos sacParCouts=vs.conversionParCouts(budget,equipe.getProjetsEtudies());
+            System.out.println("Affichage sac a dos par coûts:\n");
+            sacParCouts.afficheSac();
+            System.out.println("\n\n");
+
+            SacADos sacParSecteurs=vs.conversionParSecteur(budget,equipe.getProjetsEtudies());
+            System.out.println("Affichage sac a dos par secteurs:\n");
+            sacParSecteurs.afficheSac();
+            System.out.println("\n\n");
+        }
+        else{ //teste convertir
+            String nomfichier;
+            System.out.println("Fichiers disponibles:");
+            System.out.println("hp1.dat");
+            System.out.println("pb1.dat");
+            System.out.println("weing1.dat");
+            System.out.println("Taper le nom du fichier:");
+            scanner.nextLine();//pour vider le buffer et ne pas lire une chaine vide
+            nomfichier=scanner.nextLine().trim();
+            SacADos sacFichier=vs.convertir(nomfichier);
+            System.out.println("Affichage sac a dos du fichier:\n");
+            sacFichier.afficheSac();
+
+        }
     }
 
 

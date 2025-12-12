@@ -11,7 +11,7 @@ public class GloutonAjoutSolver {
         this.comparateur = comparateur;
     }
 
-    public List<Objet> resoudre(SacADos instance) {
+    public List<Objet> resoudre(SacADos instance){
         List<Objet> objets = new ArrayList<>(instance.getObjets());
         objets.sort(comparateur);
 
@@ -44,4 +44,6 @@ public class GloutonAjoutSolver {
         for (int i = 0; i < couts.length; i++) {
             budget[i] -= couts[i];
         }
-    }}
+    }
+
+}
