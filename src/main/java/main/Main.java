@@ -136,12 +136,12 @@ public class Main {
     /**
      * Test du sac à dos
      * - Crée l'équipe municipale (pour avoir des projets)
-     * - Propose 2 options :
+     * - Propose 2 options pour créer le sac à dos:
      *   Option 1 : Conversion par coûts (économique, social, environnemental)
-     *              ET conversion par secteurs (les 5 secteurs)
+     *              OU conversion par secteurs (les 5 secteurs)
      *   Option 2 : Chargement depuis un fichier
      */
-    private static void testerSacADos() {
+    private static SacADos testerSacADos() {
         EquipeMunicipale equipe = testerEquipeMunicipale();
 
         int choix;
@@ -154,21 +154,32 @@ public class Main {
 
         VersSacADos vs = new VersSacADos();
 
-        if (choix == 1) { //teste conversionParCouts et ParSecteurs
+        if (choix == 1) { //génère le sac à partir des données en entrée
             Budget budget = new Budget();
             budget.saisieBudget();
 
-            SacADos sacParCouts = vs.conversionParCouts(budget, equipe.getProjetsEtudies());
-            System.out.println("Affichage sac a dos par coûts:\n");
-            sacParCouts.afficheSac();
-            System.out.println("\n\n");
-            sacGlobal= sacParCouts;
+            int choix2;
+            do {
+                System.out.println("1.Générer le sac selon les budgets par coûts");
+                System.out.println("2.Générer le sac selon les budgets par secteurs");
+                System.out.println("Votre choix(1 ou 2):");
+                choix2 = scanner.nextInt();
+            } while (choix2 < 1 || choix2 > 2);
 
-            SacADos sacParSecteurs = vs.conversionParSecteur(budget, equipe.getProjetsEtudies());
-            System.out.println("Affichage sac a dos par secteurs:\n");
-            sacParSecteurs.afficheSac();
-            System.out.println("\n\n");
-            sacGlobal=sacParSecteurs;
+            if(choix2==1){ //teste conversionParCouts
+                SacADos sacParCouts = vs.conversionParCouts(budget, equipe.getProjetsEtudies());
+                System.out.println("Affichage sac a dos par coûts:\n");
+                sacParCouts.afficheSac();
+                System.out.println("\n\n");
+                sacGlobal= sacParCouts;
+            }
+            else{ //teste conversionParSecteurs
+                SacADos sacParSecteurs = vs.conversionParSecteur(budget, equipe.getProjetsEtudies());
+                System.out.println("Affichage sac a dos par secteurs:\n");
+                sacParSecteurs.afficheSac();
+                System.out.println("\n\n");
+                sacGlobal=sacParSecteurs;
+            }
 
         } else { //teste convertir
             String nomfichier;
@@ -184,6 +195,7 @@ public class Main {
             sacFichier.afficheSac();
             sacGlobal = sacFichier;
         }
+        return sacGlobal;
     }
 
     /**
@@ -195,7 +207,11 @@ public class Main {
     private static void testerGloutonAjout() {
         System.out.println("\n--- Test Glouton Ajout ---");
 
-        // Création d'un problème
+        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
+            sacGlobal=testerSacADos();
+        }
+
+     /*   // Création d'un problème
         Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
         Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
         Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
@@ -206,7 +222,7 @@ public class Main {
         objets.add(obj3);
 
         int[] budget = new int[]{5, 5, 3};
-        SacADos sac = new SacADos(budget, objets);
+        SacADos sac = new SacADos(budget, objets);*/
 
         // Application du glouton ajout (tri par utilité décroissante)
         GloutonAjoutSolver solver = new GloutonAjoutSolver(
@@ -233,7 +249,11 @@ public class Main {
     private static void testerGloutonRetrait() {
         System.out.println("\n--- Test Glouton Retrait ---");
 
-        // Création d'un problème simple
+        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
+            sacGlobal=testerSacADos();
+        }
+
+     /*   // Création d'un problème simple
         Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
         Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
         Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
@@ -244,7 +264,7 @@ public class Main {
         objets.add(obj3);
 
         int[] budget = new int[]{5, 5, 5};
-        SacADos sac = new SacADos(budget, objets);
+        SacADos sac = new SacADos(budget, objets);*/
 
         // Application du glouton retrait
         GloutonRetraitSolver solver = new GloutonRetraitSolver(
@@ -272,7 +292,11 @@ public class Main {
     private static void testerHillClimbing() {
         System.out.println("\n=== Test Hill Climbing ===");
 
-        // Création d'un problème
+        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
+            sacGlobal=testerSacADos();
+        }
+
+    /*    // Création d'un problème
         Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
         Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
         Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
@@ -285,7 +309,7 @@ public class Main {
         objets.add(obj4);
 
         int[] budget = new int[]{5, 5, 5};
-        SacADos sac = new SacADos(budget, objets);
+        SacADos sac = new SacADos(budget, objets);*/
 
         // Génération de la solution initiale avec glouton
         System.out.println("\nGénération de la solution initiale (glouton)...");
