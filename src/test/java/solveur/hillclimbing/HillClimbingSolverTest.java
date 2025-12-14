@@ -17,7 +17,8 @@ import java.util.Set;
 public class HillClimbingSolverTest {
     private SacADos sacADos;
     private List<Objet> objets;
-
+    /**
+     * à faire avant chaque test*/
     @BeforeEach
     void setUp() {
         //création d'objets de tests
