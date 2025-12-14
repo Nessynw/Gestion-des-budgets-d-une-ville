@@ -14,7 +14,7 @@ import java.util.*;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static SacADos sacGlobal = null; // Sac à dos partagé pour tous les algorithmes
-
+    static EquipeMunicipale equipeGlobale = null;
 
     public static void main(String[] args) {
         int choix;
@@ -62,6 +62,9 @@ public class Main {
      */
     private static void afficherMenu() {
         System.out.println("\n=== MENU ===");
+        if (equipeGlobale != null) System.out.println("✓ Équipe municipale créée");
+        if (sacGlobal != null) System.out.println("✓ Sac à dos créé");
+        System.out.println();
         System.out.println("1. Tester l'équipe municipale");
         System.out.println("2. Tester le sac à dos");
         System.out.println("3. Tester le Glouton Ajout");
@@ -70,6 +73,7 @@ public class Main {
         System.out.println("6. Quitter");
         System.out.print("\nVotre choix : ");
     }
+
     private static boolean verifierSacInitialise() {
         if (sacGlobal == null) {
             System.out.println("\nErreur : Aucun sac à dos n'a été créé !");
@@ -78,6 +82,7 @@ public class Main {
         }
         return true;
     }
+
     /**
      * Test de l'équipe municipale:
      * - Crée les évaluateurs (économique, social, environnemental)
@@ -88,8 +93,6 @@ public class Main {
      */
     private static EquipeMunicipale testerEquipeMunicipale() {
         System.out.println("\n--- Test de l'équipe municipale ---");
-
-        // Création des évaluateurs
         Evaluateur evalEnv = new Evaluateur("Alice", "B", "12 Rue rue",
                 "0123456789", "alice.b@ville.fr", TypeCout.ENVIRONNEMENTAL);
         Evaluateur evalSoc = new Evaluateur("Claire", "D", "34 Avenue avenue",
@@ -97,16 +100,12 @@ public class Main {
         Evaluateur evalEco = new Evaluateur("Eric", "F", "56 Boulevard blvd",
                 "0123456787", "eric.f@ville.fr", TypeCout.ECONOMIQUE);
 
-        // Création de l'élu
         Elu elu = new Elu("Elena", "R", "Mairie Principale",
                 "0123456786", "E.r@ville.fr");
 
-        // Création de l'équipe municipale
         EquipeMunicipale equipe = new EquipeMunicipale(elu, evalEnv, evalSoc, evalEco);
         System.out.println("\nÉquipe créée :");
         System.out.println(equipe);
-
-        // Ajout des experts
         System.out.println("\nAjout des experts...");
         List<Secteur> compSante = new ArrayList<>();
         compSante.add(Secteur.SANTE);
@@ -123,109 +122,116 @@ public class Main {
         System.out.println("\nÉquipe après ajout des experts :");
         System.out.println(equipe);
 
-        // Lancement du cycle de simulation
         System.out.println("\nLancement du cycle de simulation...");
         equipe.cycleSimulation();
 
         System.out.println("\nÉquipe après simulation :");
         System.out.println(equipe);
 
+        equipeGlobale = equipe;
         return equipe;
     }
 
     /**
      * Test du sac à dos
-     * - Crée l'équipe municipale (pour avoir des projets)
-     * - Propose 2 options pour créer le sac à dos:
-     *   Option 1 : Conversion par coûts (économique, social, environnemental)
-     *              OU conversion par secteurs (les 5 secteurs)
-     *   Option 2 : Chargement depuis un fichier
+     * Crée l'équipe municipale (pour avoir des projets)
+     * Propose 2 options pour créer le sac à dos:
+     *  Option 1 : Conversion depuis clavier (par coûts OU par secteurs selon choix utilisateur)
+     *  Option 2 : Chargement depuis un fichier
      */
     private static SacADos testerSacADos() {
-        EquipeMunicipale equipe = testerEquipeMunicipale();
+        // Récupérer / créer l'équipe
+        EquipeMunicipale equipe;
+        if (equipeGlobale == null) {
+            System.out.println("Création d'une nouvelle équipe..");
+            equipe = testerEquipeMunicipale();
+        } else {
+            System.out.println("Utilisation de l'équipe existante.");
+            equipe = equipeGlobale;
+        }
 
         int choix;
         do {
-            System.out.println("1.Entrer les données depuis le clavier");
-            System.out.println("2.Entrer les données depuis un fichier");
-            System.out.println("Votre choix(1 ou 2):");
+            System.out.println("\n1. Entrer les données depuis le clavier");
+            System.out.println("2. Entrer les données depuis un fichier");
+            System.out.print("Votre choix (1 ou 2): ");
             choix = scanner.nextInt();
+            scanner.nextLine();
         } while (choix < 1 || choix > 2);
 
         VersSacADos vs = new VersSacADos();
 
-        if (choix == 1) { //génère le sac à partir des données en entrée
+        if (choix == 1) {
+            // Saisie du budget (demande le mode : coûts ou secteurs)
             Budget budget = new Budget();
             budget.saisieBudget();
 
-            int choix2;
-            do {
-                System.out.println("1.Générer le sac selon les budgets par coûts");
-                System.out.println("2.Générer le sac selon les budgets par secteurs");
-                System.out.println("Votre choix(1 ou 2):");
-                choix2 = scanner.nextInt();
-            } while (choix2 < 1 || choix2 > 2);
+            // Déterminer automatiquement le mode choisi par l'utilisateur
+            boolean modeCouts = estModeCouts(budget);
 
-            if(choix2==1){ //teste conversionParCouts
+            if (modeCouts) {
                 SacADos sacParCouts = vs.conversionParCouts(budget, equipe.getProjetsEtudies());
-                System.out.println("Affichage sac a dos par coûts:\n");
+                System.out.println("\nAffichage sac à dos par coûts:");
                 sacParCouts.afficheSac();
-                System.out.println("\n\n");
-                sacGlobal= sacParCouts;
-            }
-            else{ //teste conversionParSecteurs
+                sacGlobal = sacParCouts;
+            } else {
                 SacADos sacParSecteurs = vs.conversionParSecteur(budget, equipe.getProjetsEtudies());
-                System.out.println("Affichage sac a dos par secteurs:\n");
+                System.out.println("\nAffichage sac à dos par secteurs:");
                 sacParSecteurs.afficheSac();
-                System.out.println("\n\n");
-                sacGlobal=sacParSecteurs;
+                sacGlobal = sacParSecteurs;
             }
 
-        } else { //teste convertir
+        } else {
+            // Chargement depuis fichier
             String nomfichier;
-            List<String> fichiers=new ArrayList<>(Arrays.asList("hp1.dat","pb1.dat","weing.dat"));
-            System.out.println("Fichiers disponibles:");
-            for(int i=0;i< fichiers.size();i++){
-                System.out.println(fichiers.get(i));
+            List<String> fichiers = new ArrayList<>(Arrays.asList("hp1.dat", "pb1.dat", "weing.dat"));
+            System.out.println("\nFichiers disponibles:");
+            for (String fichier : fichiers) {
+                System.out.println("  - " + fichier);
             }
-            scanner.nextLine();//pour vider le buffer et ne pas lire une chaine vide
-            do{
-                System.out.println("Taper le nom du fichier:");
+
+            do {
+                System.out.print("Taper le nom du fichier: ");
                 nomfichier = scanner.nextLine().trim();
-            }while(!fichiers.contains(nomfichier));
+                if (!fichiers.contains(nomfichier)) {
+                    System.out.println("Fichier non reconnu. Veuillez réessayer.");
+                }
+            } while (!fichiers.contains(nomfichier));
+
             SacADos sacFichier = vs.convertir(nomfichier);
-            System.out.println("Affichage sac a dos du fichier:\n");
+            System.out.println("\nAffichage sac à dos du fichier:");
             sacFichier.afficheSac();
             sacGlobal = sacFichier;
         }
+
         return sacGlobal;
     }
 
     /**
-     *Test du Glouton Ajout
-     * - Crée un problème  avec 3 objets
+     * Détermine si le budget utilise le mode "par coûts" ou "par secteurs"
+     * @param budget Le budget à analyser
+     * @return true si mode par coûts, false si mode par secteurs
+     */
+    private static boolean estModeCouts(Budget budget) {
+        int[] secteurs = budget.getBudgetSecteurs();
+        int sommeSecteurs = 0;
+        for (int s : secteurs) {
+            sommeSecteurs += s;
+        }
+        return sommeSecteurs == 0;
+    }
+
+    /**
+     * Test du Glouton Ajout
      * - Applique l'algorithme glouton par ajout
      * - Affiche la solution trouvée
      */
     private static void testerGloutonAjout() {
         System.out.println("\n--- Test Glouton Ajout ---");
 
-        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
-            sacGlobal=testerSacADos();
+        if (!verifierSacInitialise()) {
+            return;
         }
-
-     /*   // Création d'un problème
-        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
-        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
-        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
-
-        List<Objet> objets = new ArrayList<>();
-        objets.add(obj1);
-        objets.add(obj2);
-        objets.add(obj3);
-
-        int[] budget = new int[]{5, 5, 3};
-        SacADos sac = new SacADos(budget, objets);*/
 
         // Application du glouton ajout (tri par utilité décroissante)
         GloutonAjoutSolver solver = new GloutonAjoutSolver(
@@ -235,42 +241,28 @@ public class Main {
         List<Objet> solution = solver.resoudre(sacGlobal);
 
         // Affichage de la solution
-        System.out.println("\nSolution trouvée par ajout :");
+        System.out.println("\nSolution trouvée par ajout:");
         for (Objet o : solution) {
             System.out.println("  - " + o);
         }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
-        System.out.println("Utilité totale : " + utiliteTotal);
-        if(sacGlobal.getValOptimale()!=0){
-            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        System.out.println("Utilité totale: " + utiliteTotal);
+        if (sacGlobal.getValOptimale() != 0) {
+            System.out.println("Utilité optimale selon le fichier: " + sacGlobal.getValOptimale());
         }
     }
 
     /**
      * Test du Glouton Retrait
-     * - Crée un problème  avec 3 objets
      * - Applique l'algorithme glouton par retrait
      * - Affiche la solution trouvée
      */
     private static void testerGloutonRetrait() {
         System.out.println("\n--- Test Glouton Retrait ---");
 
-        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
-            sacGlobal=testerSacADos();
+        if (!verifierSacInitialise()) {
+            return;
         }
-
-     /*   // Création d'un problème simple
-        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
-        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
-        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
-
-        List<Objet> objets = new ArrayList<>();
-        objets.add(obj1);
-        objets.add(obj2);
-        objets.add(obj3);
-
-        int[] budget = new int[]{5, 5, 5};
-        SacADos sac = new SacADos(budget, objets);*/
 
         // Application du glouton retrait
         GloutonRetraitSolver solver = new GloutonRetraitSolver(
@@ -280,20 +272,19 @@ public class Main {
         List<Objet> solution = solver.resoudre(sacGlobal);
 
         // Affichage de la solution
-        System.out.println("\nSolution trouvée par retrait :");
+        System.out.println("\nSolution trouvée par retrait:");
         for (Objet o : solution) {
             System.out.println("  - " + o);
         }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
-        System.out.println("Utilité totale : " + utiliteTotal);
-        if(sacGlobal.getValOptimale()!=0){
-            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        System.out.println("Utilité totale: " + utiliteTotal);
+        if (sacGlobal.getValOptimale() != 0) {
+            System.out.println("Utilité optimale selon le fichier: " + sacGlobal.getValOptimale());
         }
     }
 
     /**
      * Test du Hill Climbing
-     * - Crée un problème avec 4 objets
      * - Génère une solution initiale avec le glouton ajout
      * - Améliore cette solution avec le Hill Climbing
      * - Affiche les résultats
@@ -301,24 +292,9 @@ public class Main {
     private static void testerHillClimbing() {
         System.out.println("\n=== Test Hill Climbing ===");
 
-        if(sacGlobal == null){ //au cas où l'utilisateur ne passe pas par testerSacADos
-            sacGlobal=testerSacADos();
+        if (!verifierSacInitialise()) {
+            return;
         }
-
-    /*    // Création d'un problème
-        Objet obj1 = new Objet("Projet A", 10, new int[]{3, 2, 1});
-        Objet obj2 = new Objet("Projet B", 8, new int[]{2, 2, 2});
-        Objet obj3 = new Objet("Projet C", 7, new int[]{1, 3, 1});
-        Objet obj4 = new Objet("Projet D", 5, new int[]{4, 1, 2});
-
-        List<Objet> objets = new ArrayList<>();
-        objets.add(obj1);
-        objets.add(obj2);
-        objets.add(obj3);
-        objets.add(obj4);
-
-        int[] budget = new int[]{5, 5, 5};
-        SacADos sac = new SacADos(budget, objets);*/
 
         // Génération de la solution initiale avec glouton
         System.out.println("\nGénération de la solution initiale (glouton)...");
@@ -330,7 +306,6 @@ public class Main {
         // Conversion en Solution (set d'indices)
         Set<Integer> indices = new HashSet<>();
         for (Objet obj : objetsGloutons) {
-            // Chercher l'indice dans la liste originale du sac
             for (int i = 0; i < sacGlobal.getObjets().size(); i++) {
                 if (sacGlobal.getObjets().get(i) == obj) {
                     indices.add(i);
@@ -340,12 +315,12 @@ public class Main {
         }
 
         if (indices.isEmpty()) {
-            System.out.println("Erreur : Aucun objet sélectionné par le glouton.");
+            System.out.println("Erreur: Aucun objet sélectionné par le glouton.");
             return;
         }
-        Solution solutionInitiale = new Solution(indices);
 
-        System.out.println("Utilité initiale : " + (int) solutionInitiale.getValeur());
+        Solution solutionInitiale = new Solution(indices);
+        System.out.println("Utilité initiale: " + (int) solutionInitiale.getValeur());
 
         // Application du Hill Climbing
         System.out.println("\nAmélioration par Hill Climbing...");
@@ -354,15 +329,15 @@ public class Main {
 
         // Affichage des résultats
         System.out.println("\n--- Résultats ---");
-        System.out.println("Utilité finale    : " + (int) solutionFinale.getValeur());
-        if(sacGlobal.getValOptimale()!=0){
-            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        System.out.println("Utilité finale   : " + (int) solutionFinale.getValeur());
+        if (sacGlobal.getValOptimale() != 0) {
+            System.out.println("Utilité optimale : " + sacGlobal.getValOptimale());
         }
-        System.out.println("Amélioration      : +" + ((int) solutionFinale.getValeur() - (int) solutionInitiale.getValeur()));
-        System.out.println("Itérations        : " + hillClimbing.getIterations());
-        System.out.println("Temps d'exécution : " + hillClimbing.getTempsExecution() + " ms");
+        System.out.println("Amélioration     : +" + ((int) solutionFinale.getValeur() - (int) solutionInitiale.getValeur()));
+        System.out.println("Itérations       : " + hillClimbing.getIterations());
+        System.out.println("Temps d'exécution: " + hillClimbing.getTempsExecution() + " ms");
 
-        System.out.println("\nObjets sélectionnés :");
+        System.out.println("\nObjets sélectionnés:");
         for (int indice : solutionFinale.getObjets()) {
             System.out.println("  - " + sacGlobal.getObjets().get(indice));
         }

@@ -57,39 +57,104 @@ public class Budget{
      * à partir des données saisies par l'utilisateur.
      */
     public void saisieBudget(){
-        do{
-            //saisir le budget total
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Budget total:\n");
-            setBudgetTotal(scanner.nextInt());
+        Scanner scanner = new Scanner(System.in);
 
-            //saisir les budgets par coûts
-            int[] bCouts=new int[3];
-            System.out.println("Budgets selon les coûts:\n");
-            System.out.println("Coût économique="); //en supposant qu'on met les couts dans cet ordre
-            bCouts[0]= scanner.nextInt();
-            System.out.println("\nCoût social=");
-            bCouts[1]= scanner.nextInt();
-            System.out.println("\nCoût environnemental=");
-            bCouts[2]= scanner.nextInt();
+        System.out.print("Budget total: ");
+        setBudgetTotal(scanner.nextInt());
+
+        System.out.println("\nChoisissez le mode de budgétisation:");
+        System.out.println("1. Par coûts (économique, social, environnemental)");
+        System.out.println("2. Par secteurs (sport, santé, éducation, culture, attractivité)");
+        System.out.print("Votre choix (1 ou 2): ");
+        int mode = scanner.nextInt();
+
+        if (mode == 1) {
+            // Saisir SEULEMENT les budgets par coûts
+            int[] bCouts = new int[3];
+            System.out.println("\nBudgets selon les coûts:");
+            System.out.print("Coût économique = ");
+            bCouts[0] = scanner.nextInt();
+            System.out.print("Coût social = ");
+            bCouts[1] = scanner.nextInt();
+            System.out.print("Coût environnemental = ");
+            bCouts[2] = scanner.nextInt();
             setBudgetCouts(bCouts);
 
-            //saisir les budgets par secteurs
-            int[] bSecteurs =new int[5];
-            System.out.println("Budgets selon les secteurs:\n"); //en supposant qu'on met les secteurs dans cet ordre
-            System.out.println("Sport=");
-            bSecteurs[0]= scanner.nextInt();
-            System.out.println("\nSanté=");
-            bSecteurs[1]= scanner.nextInt();
-            System.out.println("\nEducation=");
-            bSecteurs[2]= scanner.nextInt();
-            System.out.println("\nCulture=");
-            bSecteurs[3]= scanner.nextInt();
-            System.out.println("\nAttractivité économique=");
-            bSecteurs[4]= scanner.nextInt();
+            // Vérification
+            int sommeCouts = bCouts[0] + bCouts[1] + bCouts[2];
+            if (sommeCouts != budgetTotal) {
+                System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
+                saisieBudget();
+                return;
+            }
+
+            // Initialiser budgetSecteurs à null ou [0,0,0,0,0]
+            setBudgetSecteurs(new int[5]); // Mode par coûts = pas de secteurs
+
+        } else {
+            // Saisir SEULEMENT les budgets par secteurs
+            int[] bSecteurs = new int[5];
+            System.out.println("\nBudgets selon les secteurs:");
+            System.out.print("Sport = ");
+            bSecteurs[0] = scanner.nextInt();
+            System.out.print("Santé = ");
+            bSecteurs[1] = scanner.nextInt();
+            System.out.print("Education = ");
+            bSecteurs[2] = scanner.nextInt();
+            System.out.print("Culture = ");
+            bSecteurs[3] = scanner.nextInt();
+            System.out.print("Attractivité économique = ");
+            bSecteurs[4] = scanner.nextInt();
             setBudgetSecteurs(bSecteurs);
-        }while(!this.budgetCorrect());
+
+            // Vérification
+            int sommeSecteurs = bSecteurs[0] + bSecteurs[1] + bSecteurs[2] + bSecteurs[3] + bSecteurs[4];
+            if (sommeSecteurs != budgetTotal) {
+                System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
+                saisieBudget();
+                return;
+            }
+
+            // Initialiser budgetCouts à null ou [0,0,0]
+            setBudgetCouts(new int[3]); // Mode par secteurs = pas de coûts détaillés
+        }
+
+        System.out.println("Aucune erreur lors de la saisie des budgets!");
     }
+//    public void saisieBudget(){
+//        do{
+//            //saisir le budget total
+//            Scanner scanner = new Scanner(System.in);
+//            System.out.print("Budget total: ");
+//            setBudgetTotal(scanner.nextInt());
+//
+//            //saisir les budgets par coûts
+//            int[] bCouts=new int[3];
+//            System.out.println("Budgets selon les coûts:");
+//            System.out.println("Coût économique="); //en supposant qu'on met les couts dans cet ordre
+//            bCouts[0]= scanner.nextInt();
+//            System.out.println("\nCoût social=");
+//            bCouts[1]= scanner.nextInt();
+//            System.out.println("\nCoût environnemental=");
+//            bCouts[2]= scanner.nextInt();
+//            setBudgetCouts(bCouts);
+//
+//            //saisir les budgets par secteurs
+//            int[] bSecteurs =new int[5];
+//            System.out.println("Budgets selon les secteurs:\n"); //en supposant qu'on met les secteurs dans cet ordre
+//            System.out.println("Sport=");
+//            bSecteurs[0]= scanner.nextInt();
+//            System.out.println("\nSanté=");
+//            bSecteurs[1]= scanner.nextInt();
+//            System.out.println("\nEducation=");
+//            bSecteurs[2]= scanner.nextInt();
+//            System.out.println("\nCulture=");
+//            bSecteurs[3]= scanner.nextInt();
+//            System.out.println("\nAttractivité économique=");
+//            bSecteurs[4]= scanner.nextInt();
+//            setBudgetSecteurs(bSecteurs);
+//        }while(!this.budgetCorrect());
+//    }
 
     /**
      * Vérifie que les budgets sont corrects c'est-à-dire
@@ -97,19 +162,43 @@ public class Budget{
      * @return true si les budgets sont corrects, false sinon
      */
     public boolean budgetCorrect(){
-        int sommeCouts=budgetCouts[0]+budgetCouts[1]+budgetCouts[2];
-        int sommeSecteurs =budgetSecteurs[0]+budgetSecteurs[1]+budgetSecteurs[2]+budgetSecteurs[3]+budgetSecteurs[4];
-        if(sommeCouts!=budgetTotal){
-            System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
-            return false;
+        // Déterminer quel mode est actif
+        boolean modeCouts = (budgetSecteurs[0] == 0 && budgetSecteurs[1] == 0
+                && budgetSecteurs[2] == 0 && budgetSecteurs[3] == 0
+                && budgetSecteurs[4] == 0);
+
+        if (modeCouts) {
+            int sommeCouts = budgetCouts[0] + budgetCouts[1] + budgetCouts[2];
+            if (sommeCouts != budgetTotal) {
+                System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
+                return false;
+            }
+        } else {
+            int sommeSecteurs = budgetSecteurs[0] + budgetSecteurs[1] + budgetSecteurs[2]
+                    + budgetSecteurs[3] + budgetSecteurs[4];
+            if (sommeSecteurs != budgetTotal) {
+                System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
+                return false;
+            }
         }
-        else if(sommeSecteurs !=budgetTotal){
-            System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
-            return false;
-        }
-        else{
-            System.out.println("Aucune erreur lors de la saisie des budgets!");
-            return true;
-        }
+
+        System.out.println("Aucune erreur lors de la saisie des budgets!");
+        return true;
     }
+//    public boolean budgetCorrect(){
+//        int sommeCouts=budgetCouts[0]+budgetCouts[1]+budgetCouts[2];
+//        int sommeSecteurs =budgetSecteurs[0]+budgetSecteurs[1]+budgetSecteurs[2]+budgetSecteurs[3]+budgetSecteurs[4];
+//        if(sommeCouts!=budgetTotal){
+//            System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
+//            return false;
+//        }
+//        else if(sommeSecteurs !=budgetTotal){
+//            System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
+//            return false;
+//        }
+//        else{
+//            System.out.println("Aucune erreur lors de la saisie des budgets!");
+//            return true;
+//        }
+//    }
 }
