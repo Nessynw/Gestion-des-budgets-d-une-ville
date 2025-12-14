@@ -183,13 +183,16 @@ public class Main {
 
         } else { //teste convertir
             String nomfichier;
+            List<String> fichiers=new ArrayList<>(Arrays.asList("hp1.dat","pb1.dat","weing.dat"));
             System.out.println("Fichiers disponibles:");
-            System.out.println("hp1.dat");
-            System.out.println("pb1.dat");
-            System.out.println("weing1.dat");
-            System.out.println("Taper le nom du fichier:");
+            for(int i=0;i< fichiers.size();i++){
+                System.out.println(fichiers.get(i));
+            }
             scanner.nextLine();//pour vider le buffer et ne pas lire une chaine vide
-            nomfichier = scanner.nextLine().trim();
+            do{
+                System.out.println("Taper le nom du fichier:");
+                nomfichier = scanner.nextLine().trim();
+            }while(!fichiers.contains(nomfichier));
             SacADos sacFichier = vs.convertir(nomfichier);
             System.out.println("Affichage sac a dos du fichier:\n");
             sacFichier.afficheSac();
@@ -238,6 +241,9 @@ public class Main {
         }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
         System.out.println("Utilité totale : " + utiliteTotal);
+        if(sacGlobal.getValOptimale()!=0){
+            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        }
     }
 
     /**
@@ -280,6 +286,9 @@ public class Main {
         }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
         System.out.println("Utilité totale : " + utiliteTotal);
+        if(sacGlobal.getValOptimale()!=0){
+            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        }
     }
 
     /**
@@ -346,6 +355,9 @@ public class Main {
         // Affichage des résultats
         System.out.println("\n--- Résultats ---");
         System.out.println("Utilité finale    : " + (int) solutionFinale.getValeur());
+        if(sacGlobal.getValOptimale()!=0){
+            System.out.println("Utilité optimale selon le fichier: "+sacGlobal.getValOptimale());
+        }
         System.out.println("Amélioration      : +" + ((int) solutionFinale.getValeur() - (int) solutionInitiale.getValeur()));
         System.out.println("Itérations        : " + hillClimbing.getIterations());
         System.out.println("Temps d'exécution : " + hillClimbing.getTempsExecution() + " ms");
