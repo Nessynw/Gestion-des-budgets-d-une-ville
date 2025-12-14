@@ -2,9 +2,16 @@ package sacados;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Classe Objet pour définir un objet de type Objet.
+ * Contient des méthodes pour
+ * - afficher un Objet
+ * - définir l'égalité entre 2 Objets
+ * - rajouter un nouveau coût
+ */
 public class Objet{
     private String nom;
-    private int utilite;
+    private int utilite;//benefice
     private int[] couts;
 
     public Objet(String nom,int utilite,int[] couts){
@@ -48,6 +55,10 @@ public class Objet{
         this.couts = couts;
     }
 
+    /**
+     * Ajoute un nouveau coût au tableau de coûts de l'Objet.
+     * @param val la valeur du coût qu'on veut ajouter
+     */
     public void addCout(int val){
         int[] c=new int[couts.length+1];
         for(int i=0;i< couts.length;i++){

@@ -5,9 +5,21 @@ import java.util.List;
 import equipe.Projet;
 import equipe.Secteur;
 
+/**
+ * Classe VersSacADos qui permet de générer un sac à dos.
+ * Contient 3 méthodes:
+ * - 2 méthodes créant un sac à dos à partir de projets et de budgets saisis par l'utilisateur
+ * - 1 méthode créant un sac à dos à partir d'objets et de budgets récupérés dans un fichier
+ */
 public class VersSacADos {
 
-    //pour convertir chaque projet en objet qui a 3 coûts 
+    /**
+     * Crée un sac à dos dont les objets sont les projets et où sont considérés les budgets par coûts.
+     * Chaque objet du sac à dos aura donc 3 coûts.
+     * @param budget les budgets saisis par l'utilisateur
+     * @param projets la liste de projets proposés par l'équipe municipale
+     * @return le sac à dos
+     */
     public SacADos conversionParCouts(Budget budget, List<Projet> projets) {
         if (budget == null || projets == null) {
             throw new IllegalArgumentException("Le budget et la liste des projets ne peuvent pas être null");
@@ -27,7 +39,13 @@ public class VersSacADos {
         return new SacADos(tabBudgets, objets);
     }
 
-    //selon le secteur
+    /**
+     * Crée un sac à dos dont les objets sont les projets et où sont considérés les budgets par secteurs.
+     * Chaque objet du sac à dos aura donc 5 coûts.
+     * @param budget les budgets saisis par l'utilisateur
+     * @param projets la liste de projets proposés par l'équipe municipale
+     * @return le sac à dos
+     */
     public SacADos conversionParSecteur(Budget budget, List<Projet> projets) {
     if (budget == null || projets == null) {
         throw new IllegalArgumentException("Le budget et la liste des projets ne peuvent pas être null");
@@ -48,6 +66,11 @@ public class VersSacADos {
 }
 
 
+    /**
+     * Crée un sac à dos à partir des valeurs de budgets, de coûts et d'utilités d'un fichier.
+     * @param namefile nom du fichier (le fichier doit être présent dans le dossier resources)
+     * @return le sac à dos
+     */
     public SacADos convertir(String namefile) {
         if (namefile == null) {
             throw new IllegalArgumentException("Le nom du fichier ne peut pas être null");
@@ -148,7 +171,7 @@ public class VersSacADos {
                 budgets[i] = Integer.parseInt(valeurs[i]);
             }
 
-            return new SacADos(budgets, objets);
+            return new SacADos(budgets, objets, valOptimale);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Erreur lors de la lecture du fichier: " + e.getMessage());
