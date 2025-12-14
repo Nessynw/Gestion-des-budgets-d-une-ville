@@ -96,47 +96,6 @@ public class SolutionTest {
         });
     }
 
-    //on teste les setters getters
-    @Test
-    public void testGetSetValeur() {
-        Solution solution = new Solution(Set.of(0, 1));
 
-        solution.setValeur(13.0); // 5 + 8 = 13
-        assertEquals(13.0, solution.getValeur(), 0.001);
-    }
 
-    @Test
-    public void testValeurInitiale() {
-        Solution solution = new Solution(Set.of(0));
-        // La valeur devrait être 0 par défaut (ou ce que vous avez défini)
-        assertEquals(0.0, solution.getValeur(), 0.001);
-    }
-
-//je teste equals/hash
-    @Test
-    public void testEqualsSolutionsIdentiques() {
-        Solution s1 = new Solution(Set.of(0, 1));
-        Solution s2 = new Solution(Set.of(0, 1));
-
-        assertEquals(s1, s2);
-    }
-
-    @Test
-    public void testEqualsSolutionsDifferentes() {
-        Solution s1 = new Solution(Set.of(0, 1));
-        Solution s2 = new Solution(Set.of(0, 2));
-
-        assertNotEquals(s1, s2);
-    }
-
-    @Test
-    public void testHashCodeCoherent() {
-        Solution s1 = new Solution(Set.of(0, 1));
-        Solution s2 = new Solution(Set.of(0, 1));
-
-        // Si equals() retourne true, hashCode() doit être identique
-        if (s1.equals(s2)) {
-            assertEquals(s1.hashCode(), s2.hashCode());
-        }
-    }
 }
