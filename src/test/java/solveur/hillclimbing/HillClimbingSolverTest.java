@@ -47,7 +47,7 @@ public class HillClimbingSolverTest {
         });
         assertTrue(exception.getMessage().contains("solution") ||
                         exception.getMessage().contains("null"),
-                "Le message d'erreur devrait mentionner la solution");
+                "Le message d'erreur avec la solution");
     }
 
     @Test

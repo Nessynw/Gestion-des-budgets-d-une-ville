@@ -1,5 +1,8 @@
 package equipe;
 
+/**
+ * énumération des différents types de coûts évalués pour un projet
+ */
 public enum TypeCout {
     ECONOMIQUE("Économique"),
     SOCIAL("Social"),
@@ -7,6 +10,10 @@ public enum TypeCout {
 
     private final String libelle;
 
+    /**
+     * constructeur d'une valeur d'énumération
+     * @param libelle
+     */
     TypeCout(String libelle) {
         this.libelle = libelle;
     }

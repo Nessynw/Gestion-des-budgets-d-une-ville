@@ -1,5 +1,8 @@
 package equipe;
 
+/**
+ * énumération des différents secteurs d'activité pour les projets municipaux.
+ */
 public enum Secteur {
     SPORT("Sport"),
     SANTE("Santé"),
@@ -9,10 +12,18 @@ public enum Secteur {
 
     private String libelle;
 
+    /**
+     * constructeur d'une valeur d'énumération avec libellé spécifié
+     * @param nom
+     */
     Secteur(String nom){
         this.libelle = nom;
     }
 
+    /**
+     *
+     * @return le libellé du secteur
+     */
     public String getLibelle(){
         return libelle;
     }
