@@ -139,7 +139,7 @@ public class Main {
      *  Option 1 : Conversion depuis clavier (par coûts OU par secteurs selon choix utilisateur)
      *  Option 2 : Chargement depuis un fichier
      */
-    private static SacADos testerSacADos() {
+    private static void testerSacADos() {
         // Récupérer / créer l'équipe
         EquipeMunicipale equipe;
         if (equipeGlobale == null) {
@@ -203,8 +203,6 @@ public class Main {
             sacFichier.afficheSac();
             sacGlobal = sacFichier;
         }
-
-        return sacGlobal;
     }
 
     /**
@@ -245,6 +243,9 @@ public class Main {
         for (Objet o : solution) {
             System.out.println("  - " + o);
         }
+        if(solution.isEmpty()){
+            System.out.println("Aucun projet n'est dans la limite des budgets disponibles");
+        }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
         System.out.println("Utilité totale: " + utiliteTotal);
         if (sacGlobal.getValOptimale() != 0) {
@@ -275,6 +276,9 @@ public class Main {
         System.out.println("\nSolution trouvée par retrait:");
         for (Objet o : solution) {
             System.out.println("  - " + o);
+        }
+        if(solution.isEmpty()){
+            System.out.println("Aucun projet n'est dans la limite des budgets disponibles");
         }
         int utiliteTotal = solution.stream().mapToInt(Objet::getUtilite).sum();
         System.out.println("Utilité totale: " + utiliteTotal);
