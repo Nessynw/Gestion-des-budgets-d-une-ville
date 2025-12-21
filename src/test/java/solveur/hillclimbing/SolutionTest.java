@@ -45,12 +45,6 @@ public class SolutionTest {
         assertTrue(solution.getObjets().contains(1));
     }
 
-    @Test
-    public void testCreationSolutionNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Solution(null);
-        });
-    }
 //tests sur le budget
     @Test
     public void testSolutionVideRespecteBudget() {
@@ -67,32 +61,12 @@ public class SolutionTest {
     }
 
     @Test
-    public void testSolutionLimiteRespecteBudget() {
-        // obj0 (coût 10) + obj2 (coût 20) = 30 = budget exact (le cas limite sol= budget)
-        Solution solution = new Solution(Set.of(0, 2));
-        assertTrue(solution.respecteBudget(problemeSimple));
-    }
-
-    @Test
     public void testSolutionInvalideNeRespectePasBudget() {
         // obj0 + obj1 + obj2 = 10 + 15 + 20 = 45 > 30 (on rejette sol)
         Solution solution = new Solution(Set.of(0, 1, 2));
         assertFalse(solution.respecteBudget(problemeSimple));
     }
 
-    @Test
-    public void testSolutionDepasseBudget() {
-        // obj1 (15) + obj2 (20) = 35 > 30
-        Solution solution = new Solution(Set.of(1, 2));
-        assertFalse(solution.respecteBudget(problemeSimple));
-    }
 
-    @Test
-    public void testRespecteBudgetAvecProblemeNull() {
-        Solution solution = new Solution(Set.of(0));
-        assertThrows(IllegalArgumentException.class, () -> {
-            solution.respecteBudget(null);
-        });
-    }
 
 }

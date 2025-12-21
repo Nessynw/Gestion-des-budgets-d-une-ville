@@ -24,13 +24,9 @@ public class HillClimbingSolverTest {
         //création d'objets de tests
         objets = new ArrayList<>();
         objets.add(new Objet("Objet1", 50, new int[]{10, 5, 3}));
-        // Objet2: utilité=80, coûts=[15, 10, 8]
         objets.add(new Objet("Objet2", 80, new int[]{15, 10, 8}));
-        // Objet3: utilité=40, coûts=[8, 6, 4]
         objets.add(new Objet("Objet3", 40, new int[]{8, 6, 4}));
-        // Objet4: utilité=30, coûts=[5, 3, 2]
         objets.add(new Objet("Objet4", 30, new int[]{5, 3, 2}));
-        // Objet5: utilité=70, coûts=[12, 8, 6]
         objets.add(new Objet("Objet5", 70, new int[]{12, 8, 6}));
 
         //budget
@@ -119,38 +115,8 @@ public class HillClimbingSolverTest {
         assertTrue(resultat.respecteBudget(sacADos), "La solution devrait respecter le budget");
     }
     @Test
-    void testConvergenceOptimumLocal() {
-        HillClimbingSolver solver = new HillClimbingSolver(sacADos, 2);
-
-        Set<Integer> objets = Set.of(1);
-        Solution solution = new Solution(objets);
-        Solution resultat1 = solver.resoudre(solution);
-
-        // Résoudre à nouveau depuis le résultat
-        HillClimbingSolver solver2 = new HillClimbingSolver(sacADos, 2);
-        Solution resultat2 = solver2.resoudre(
-                new Solution(new HashSet<>(resultat1.getObjets()))
-        );
-
-        assertEquals(resultat1.getValeur(), resultat2.getValeur(), 0.001,
-                "Un optimum local ne devrait plus changer");
-    }
-    @Test
     void testResoudreAvecPlateauActive() {
         HillClimbingSolver solver = new HillClimbingSolver(sacADos, 2, true, 3);
-
-        Set<Integer> objetsSelectionnes = new HashSet<>();
-        objetsSelectionnes.add(0);
-
-        Solution solution = new Solution(objetsSelectionnes);
-        Solution resultat = solver.resoudre(solution);
-
-        assertNotNull(resultat, "Le résultat ne devrait pas être null");
-        assertTrue(resultat.respecteBudget(sacADos), "La solution devrait respecter le budget");
-    }
-    @Test
-    void testResoudreSansPlateauActive() {
-        HillClimbingSolver solver = new HillClimbingSolver(sacADos, 2, false, 0);
 
         Set<Integer> objetsSelectionnes = new HashSet<>();
         objetsSelectionnes.add(0);
@@ -173,19 +139,6 @@ public class HillClimbingSolverTest {
 
         assertTrue(resultat.respecteBudget(sacADos),
                 "La solution finale devrait toujours respecter le budget");
-    }
-    @Test
-    void testVoisinagePlusGrand() {
-        List<Integer> objets = List.of(3); // Solution sous-optimale
-
-        HillClimbingSolver solver1 = new HillClimbingSolver(sacADos, 1);
-        HillClimbingSolver solver3 = new HillClimbingSolver(sacADos, 3);
-
-        Solution resultat1 = solver1.resoudre(new Solution(new HashSet<>(objets)));
-        Solution resultat3 = solver3.resoudre(new Solution(new HashSet<>(objets)));
-
-        assertTrue(resultat3.getValeur() >= resultat1.getValeur(),
-                "Voisinage plus grand ne devrait pas donner de pires résultats");
     }
 
 

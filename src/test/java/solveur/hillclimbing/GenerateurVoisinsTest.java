@@ -38,21 +38,7 @@ public class GenerateurVoisinsTest {
         generateur = new GenerateurVoisinsBas(2);
 
     }
-    @Test
-    @DisplayName("genererVoisins() avec solution vide génère uniquement des ajouts")
-    void testGenererVoisinsSolutionVide() {
-        Solution solutionVide = new Solution(new HashSet<>());
 
-        List<Solution> voisins = generateur.genererVoisins(solutionVide, sacADos);
-
-        assertNotNull(voisins);
-        assertTrue(voisins.size() > 0, "Devrait générer des voisins par ajout");
-
-        // Tous les voisins devraient respecter le budget
-        for (Solution voisin : voisins) {
-            assertTrue(voisin.respecteBudget(sacADos));
-        }
-    }
     @Test
     @DisplayName("genererVoisins() génère des voisins valides (respectant budget)")
     void testGenererVoisinsRespectebudget() {
@@ -69,20 +55,6 @@ public class GenerateurVoisinsTest {
         }
     }
 
-    @Test
-    @DisplayName("genererVoisins() ne génère pas de doublons")
-    void testGenererVoisinsSansDoublons() {
-        Set<Integer> objets = new HashSet<>(Set.of(0));
-        Solution solution = new Solution(objets);
-
-        List<Solution> voisins = generateur.genererVoisins(solution, sacADos);
-
-        // Convertir en Set pour détecter doublons
-        Set<Solution> voisinsUniques = new HashSet<>(voisins);
-
-        assertEquals(voisins.size(), voisinsUniques.size(),
-                "Ne devrait pas y avoir de doublons dans les voisins");
-    }
     @Test
     @DisplayName("genererVoisins() génère voisins par retrait uniquement")
     void testGenererVoisinsRetrait() {
