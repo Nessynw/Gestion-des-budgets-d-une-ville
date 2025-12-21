@@ -33,3 +33,4 @@ public class TestObjet {
         assertEquals(objetUnderTest,o);
     }
 }
+

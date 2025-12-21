@@ -29,6 +29,7 @@ public class gloutonAjoutSolverTest {
         assertTrue(solution.stream().mapToInt(o -> o.getCouts()[0]).sum() <= 30);
     }*/
 
+
     @Test
     public void testAjoutOrdreDecroissant() {
         GloutonAjoutSolver solver = new GloutonAjoutSolver(new Comparateur.ParUtiliteDecroissante());
