@@ -1,6 +1,7 @@
+package sacados;
+
 import equipe.Projet;
 import equipe.Secteur;
-import sacados.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;

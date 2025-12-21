@@ -24,9 +24,7 @@ public class Budget{
         budgetCouts = c;
         budgetSecteurs = s;
     }
-    public int getBudgetTotal() {
-        return budgetTotal;
-    }
+
     public int[] getBudgetCouts(){
         return Arrays.copyOf(budgetCouts, budgetCouts.length);//j'ai fais en sorte qu'on retourne des copies ici pour éviter de compromettre l'encapsulation
     }
@@ -48,9 +46,6 @@ public class Budget{
         this.budgetTotal = budgetTotal;
     }
 
-    public void afficheBudget(){
-        System.out.println("Le budget restant est "+budgetTotal);
-    }
 
     /**
      * - Attribue des valeurs aux constructeurs(aux différents budgets)
@@ -122,36 +117,6 @@ public class Budget{
         }
 
         System.out.println("Aucune erreur lors de la saisie des budgets!");
-    }
-
-    /**
-     * Vérifie que les budgets sont corrects c'est-à-dire
-     * si la somme des budgets par coûts(ou par secteurs) ne dépasse pas le budget total.
-     * @return true si les budgets sont corrects, false sinon
-     */
-    public boolean budgetCorrect(){
-        // Déterminer quel mode est actif
-        boolean modeCouts = (budgetSecteurs[0] == 0 && budgetSecteurs[1] == 0
-                && budgetSecteurs[2] == 0 && budgetSecteurs[3] == 0
-                && budgetSecteurs[4] == 0);
-
-        if (modeCouts) {
-            int sommeCouts = budgetCouts[0] + budgetCouts[1] + budgetCouts[2];
-            if (sommeCouts != budgetTotal) {
-                System.out.println("Le budget total ne correspond pas aux budgets de chaque coût");
-                return false;
-            }
-        } else {
-            int sommeSecteurs = budgetSecteurs[0] + budgetSecteurs[1] + budgetSecteurs[2]
-                    + budgetSecteurs[3] + budgetSecteurs[4];
-            if (sommeSecteurs != budgetTotal) {
-                System.out.println("Le budget total ne correspond pas aux budgets de chaque secteur");
-                return false;
-            }
-        }
-
-        System.out.println("Aucune erreur lors de la saisie des budgets!");
-        return true;
     }
 
 }

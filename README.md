@@ -38,7 +38,16 @@ Le projet inclut également une **conversion automatique des projets en objets d
 ```bash
 git clone https://github.com/Nessynw/Gestion-des-budgets-d-une-ville.git
 
+```
+2. Compiler/exécuter
 
+- depuis un terminal
+````
+mvn clean package
+java -jar target/Gestion-des-budgets-d-une-ville.jar
+````
+- depuis un IDE:
+ouvrir src>main>java>main>Main.java
 ---
 
 ## Structure du projet
