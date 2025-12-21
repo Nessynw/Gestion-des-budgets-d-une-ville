@@ -18,16 +18,7 @@ public class gloutonAjoutSolverTest {
         Objet obj2 = new Objet("obj2", 12, new int[]{20});
         sacSimple = new SacADos(new int[]{30}, List.of(obj0, obj1, obj2));
     }
-/*
-    @Test
-    public void testAjoutRespectBudget() {
-        GloutonAjoutSolver solver = new GloutonAjoutSolver(new Comparateur.ParUtiliteDecroissante());
-        List<Objet> solution = solver.resoudre(sacSimple);
 
-        int totalUtilite = solution.stream().mapToInt(Objet::getUtilite).sum();
-        assertEquals(13, totalUtilite); // obj0 + obj1
-        assertTrue(solution.stream().mapToInt(o -> o.getCouts()[0]).sum() <= 30);
-    }*/
 
     @Test
     public void testAjoutOrdreDecroissant() {

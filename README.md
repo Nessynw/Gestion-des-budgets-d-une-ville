@@ -33,11 +33,62 @@ Le projet inclut également une **conversion automatique des projets en objets d
    - Respect du budget, validité des solutions, fonctionnement des générateurs de voisins
 ---
 ## Structure du projet
+````
+projet/                       
+├── src/
+│   ├── main/
+│   │    ├── java/
+│   │    │    ├── equipe/
+│   │    │    │   ├── Elu.java                    # Élu évaluant les bénéfices
+│   │    │    │   ├── EquipeMunicipale.java       # Équipe complète
+│   │    │    │   ├── Evaluateur.java             # Évaluateurs de coûts
+│   │    │    │   ├── Expert.java                 # Experts proposant des projets
+│   │    │    │   ├── IElu.java                   # Interface pour élu
+│   │    │    │   ├── IEvaluateur.java            # Interface pour évaluateur
+│   │    │    │   ├── IExpert.java                # Interface pour expert
+│   │    │    │   ├── Personne.java               # Classe abstraite de base
+│   │    │    │   ├── Projet.java                 # Représentation d'un projet
+│   │    │    │   ├── Secteur.java                # Énumération des secteurs
+│   │    │    │   └── TypeCout.java               # Énumération des types de coûts
+│   │    │    ├── main/
+│   │    │    │   └── Main.java                   # Point d'entrée du programme
+│   │    │    ├── sacados/
+│   │    │    │   ├── Budget.java                 # Gestion des budgets
+│   │    │    │   ├── Objet.java                  # Représentation d'un objet
+│   │    │    │   ├── SacADos.java                # Modélisation du problème
+│   │    │    │   └── VersSacADos.java            # Conversion projets vers sac à dos
+│   │    │    └── solveur/
+│   │    │        ├── glouton/
+│   │    │        │   ├── Comparateur.java            # Comparateurs d'objets
+│   │    │        │   ├── GloutonAjoutSolver.java     # Algorithme glouton ajout
+│   │    │        │   └── GloutonRetraitSolver.java   # Algorithme glouton retrait
+│   │    │        └── hillclimbing/
+│   │    │            ├── GenerateurVoisinsBas.java   # Génération de voisins
+│   │    │            ├── HillClimbingSolver.java     # Algorithme Hill Climbing
+│   │    │            ├── IGenerateurVoisins.java     # Interface génération
+│   │    │            └── Solution.java               # Représentation d'une solution
+│   │    │
+│   │    └── resources/ #Dossier des fichiers .dat
+│   │
+│   └──  test/
+│        └── java/
+│            ├── solveur.glouton/
+│            │   └── gloutonAjoutSolverTest.java    # Tests JUnit Glouton Ajout
+│            └── solveur.hillclimbing/
+│                ├── GenerateurVoisinsTest.java      # Tests génération de voisins
+│                ├── HillClimbingSolverTest.java     # Tests Hill Climbing
+│                ├── SolutionTest.java               # Tests Solution
+│                ├── TestObjet.java                  # Tests classe Objet
+│                └── TestVersSacADos.java            # Tests conversion                
+└── pom.xml #config Maven
+
+
+````
 
 
 ---
 ## Prérequis
-- Java JDK
+- Java JDK version 23 (sinon changer la version dans les propriétés de pom.xml)
 - Maven
 - IDE recommandé : IntelliJ IDEA
 
@@ -72,9 +123,9 @@ Votre choix :
 ## Problèmes courants : 
 Erreur de compilation Maven: 
 --> Sa solution : mvn clean install -U
-```
-
+````
 
 ---
+
 
 
