@@ -34,52 +34,8 @@ Le projet inclut également une **conversion automatique des projets en objets d
 
 ---
 ## Structure du projet
-projet/                       
-├── src/
-│   └── main/
-│       └── java/
-│           ├── equipe/
-│           │   ├── Elu.java                    # Élu évaluant les bénéfices
-│           │   ├── EquipeMunicipale.java       # Équipe complète
-│           │   ├── Evaluateur.java             # Évaluateurs de coûts
-│           │   ├── Expert.java                 # Experts proposant des projets
-│           │   ├── IElu.java                   # Interface pour élu
-│           │   ├── IEvaluateur.java            # Interface pour évaluateur
-│           │   ├── IExpert.java                # Interface pour expert
-│           │   ├── Personne.java               # Classe abstraite de base
-│           │   ├── Projet.java                 # Représentation d'un projet
-│           │   ├── Secteur.java                # Énumération des secteurs
-│           │   └── TypeCout.java               # Énumération des types de coûts
-│           ├── main/
-│           │   └── Main.java                   # Point d'entrée du programme
-│           ├── sacados/
-│           │   ├── Budget.java                 # Gestion des budgets
-│           │   ├── Objet.java                  # Représentation d'un objet
-│           │   ├── SacADos.java                # Modélisation du problème
-│           │   └── VersSacADos.java            # Conversion projets vers sac à dos
-│           └── solveur/
-│               ├── glouton/
-│               │   ├── Comparateur.java            # Comparateurs d'objets
-│               │   ├── GloutonAjoutSolver.java     # Algorithme glouton ajout
-│               │   └── GloutonRetraitSolver.java   # Algorithme glouton retrait
-│               └── hillclimbing/
-│                   ├── GenerateurVoisinsBas.java   # Génération de voisins
-│                   ├── HillClimbingSolver.java     # Algorithme Hill Climbing
-│                   ├── IGenerateurVoisins.java     # Interface génération
-│                   └── Solution.java               # Représentation d'une solution
-├── resources/                      # Dossier des ressources (fichiers .dat)
-├── test/
-│   └── java/
-│       ├── solveur.glouton/
-│       │   └── gloutonAjoutSolverTest.java    # Tests JUnit Glouton Ajout
-│       └── solveur.hillclimbing/
-│           ├── GenerateurVoisinsTest.java      # Tests génération de voisins
-│           ├── HillClimbingSolverTest.java     # Tests Hill Climbing
-│           ├── SolutionTest.java               # Tests Solution
-│           ├── TestObjet.java                  # Tests classe Objet
-│           └── TestVersSacADos.java            # Tests conversion
-├── pom.xml #config Maven
-..
+
+
 ---
 ## Prérequis
 - Java JDK
@@ -113,7 +69,7 @@ cd Gestion-des-budgets-d-une-ville
 
 Votre choix :
 
-## Ordre recommandé d’exécution: Option 1 → Option 2 → Options 3/4/5
+--> Ordre recommandé d’exécution: Option 1 → Option 2 → Options 3/4/5
 ## Problèmes courants : 
 Erreur de compilation Maven: 
 --> Sa solution : mvn clean install -U
