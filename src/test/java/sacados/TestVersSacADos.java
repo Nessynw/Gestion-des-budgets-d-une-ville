@@ -68,7 +68,7 @@ public class TestVersSacADos {
 
     @Test
     public void convertir_nomFichier_SacADos(){
-        String filename="/test.dat";
+        String filename="test.dat";
         SacADos sac=vsacUnderTest.convertir(filename);
         assertEquals(3,sac.getDimension());
         assertArrayEquals(sac.getBudget(),creationBudget().getBudgetCouts());

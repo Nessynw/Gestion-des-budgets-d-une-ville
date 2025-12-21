@@ -43,12 +43,11 @@ git clone https://github.com/Nessynw/Gestion-des-budgets-d-une-ville.git
 
 - depuis un terminal
 ````
-mvn clean package
-java -jar target/Gestion-des-budgets-d-une-ville.jar
+./mvnw clean package #(sur windows: mvnw.cmd clean package)
+java -jar target\Gestion-des-budgets-d-une-ville--1.0-SNAPSHOT.jar
 ````
 - depuis un IDE:
 ouvrir src>main>java>main>Main.java
 ---
 
-## Structure du projet
 
