@@ -3,6 +3,7 @@ package sacados;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 /**
  * Classe Budget pour définir un objet de type Budget.
  * Contient des méthodes pour accéder/modifier les valeurs des budgets.

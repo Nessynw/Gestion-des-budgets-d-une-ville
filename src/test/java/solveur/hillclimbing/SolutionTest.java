@@ -14,7 +14,6 @@ public class SolutionTest {
     private SacADos problemeSimple;
 
 
-
     @BeforeEach
     public void setUp() {
         Objet obj0 = new Objet("obj0", 5, new int[]{10});
