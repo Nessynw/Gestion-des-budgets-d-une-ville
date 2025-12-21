@@ -32,15 +32,50 @@ Le projet inclut également une **conversion automatique des projets en objets d
    - Vérification de toutes les méthodes des classes métier et solveurs
    - Respect du budget, validité des solutions, fonctionnement des générateurs de voisins
 ---
+## Structure du projet
+
+
+---
+## Prérequis
+- Java JDK
+- Maven
+- IDE recommandé : IntelliJ IDEA
 
 ## Installation
-1. Cloner le dépôt :
-```bash
+## 1. Cloner le dépôt :
 git clone https://github.com/Nessynw/Gestion-des-budgets-d-une-ville.git
+cd Gestion-des-budgets-d-une-ville
+## 2. Compiler le projet :
+- Sur intelliJ IDEA:
+  Maven se configure automatiquement via pom.xml
+  Build -> Build Project
+## 3. Execution :
+  1- Avec IntelliJ IDEA:
+  Ouvrir main/Main.java
+  Run Main.main()
+  Interagir avec le menu dans la console
+  2- Avec Maven
+  mvn exec: java -Dexec.mainClass="main.Main"
+## 4. Menu Principal:
+  Au lancement le programme affiche:
+  === MENU ===
+1. Tester l'équipe municipale
+2. Tester le sac à dos
+3. Tester le Glouton Ajout
+4. Tester le Glouton Retrait
+5. Tester le Hill Climbing
+6. Quitter
 
+Votre choix :
+
+--> Ordre recommandé d’exécution: Option 1 → Option 2 → Options 3/4/5
+## Problèmes courants : 
+Erreur de compilation Maven: 
+--> Sa solution : mvn clean install -U
 ```
 2. Compiler/exécuter
 
+  
 - depuis un terminal
 ````
 ./mvnw clean package #(sur windows: mvnw.cmd clean package)
