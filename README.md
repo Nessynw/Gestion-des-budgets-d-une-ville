@@ -31,15 +31,93 @@ Le projet inclut également une **conversion automatique des projets en objets d
 4. **Tests unitaires complets** :
    - Vérification de toutes les méthodes des classes métier et solveurs
    - Respect du budget, validité des solutions, fonctionnement des générateurs de voisins
+
 ---
+## Structure du projet
+projet/                       
+├── src/
+│   └── main/
+│       └── java/
+│           ├── equipe/
+│           │   ├── Elu.java                    # Élu évaluant les bénéfices
+│           │   ├── EquipeMunicipale.java       # Équipe complète
+│           │   ├── Evaluateur.java             # Évaluateurs de coûts
+│           │   ├── Expert.java                 # Experts proposant des projets
+│           │   ├── IElu.java                   # Interface pour élu
+│           │   ├── IEvaluateur.java            # Interface pour évaluateur
+│           │   ├── IExpert.java                # Interface pour expert
+│           │   ├── Personne.java               # Classe abstraite de base
+│           │   ├── Projet.java                 # Représentation d'un projet
+│           │   ├── Secteur.java                # Énumération des secteurs
+│           │   └── TypeCout.java               # Énumération des types de coûts
+│           ├── main/
+│           │   └── Main.java                   # Point d'entrée du programme
+│           ├── sacados/
+│           │   ├── Budget.java                 # Gestion des budgets
+│           │   ├── Objet.java                  # Représentation d'un objet
+│           │   ├── SacADos.java                # Modélisation du problème
+│           │   └── VersSacADos.java            # Conversion projets vers sac à dos
+│           └── solveur/
+│               ├── glouton/
+│               │   ├── Comparateur.java            # Comparateurs d'objets
+│               │   ├── GloutonAjoutSolver.java     # Algorithme glouton ajout
+│               │   └── GloutonRetraitSolver.java   # Algorithme glouton retrait
+│               └── hillclimbing/
+│                   ├── GenerateurVoisinsBas.java   # Génération de voisins
+│                   ├── HillClimbingSolver.java     # Algorithme Hill Climbing
+│                   ├── IGenerateurVoisins.java     # Interface génération
+│                   └── Solution.java               # Représentation d'une solution
+├── resources/                      # Dossier des ressources (fichiers .dat)
+├── test/
+│   └── java/
+│       ├── solveur.glouton/
+│       │   └── gloutonAjoutSolverTest.java    # Tests JUnit Glouton Ajout
+│       └── solveur.hillclimbing/
+│           ├── GenerateurVoisinsTest.java      # Tests génération de voisins
+│           ├── HillClimbingSolverTest.java     # Tests Hill Climbing
+│           ├── SolutionTest.java               # Tests Solution
+│           ├── TestObjet.java                  # Tests classe Objet
+│           └── TestVersSacADos.java            # Tests conversion
+├── pom.xml #config Maven
+..
+---
+## Prérequis
+- Java JDK
+- Maven
+- IDE recommandé : IntelliJ IDEA
 
 ## Installation
-1. Cloner le dépôt :
-```bash
+## 1. Cloner le dépôt :
 git clone https://github.com/Nessynw/Gestion-des-budgets-d-une-ville.git
+cd Gestion-des-budgets-d-une-ville
+## 2. Compiler le projet :
+- Sur intelliJ IDEA:
+  Maven se configure automatiquement via pom.xml
+  Build -> Build Project
+## 3. Execution :
+  1- Avec IntelliJ IDEA:
+  Ouvrir main/Main.java
+  Run Main.main()
+  Interagir avec le menu dans la console
+  2- Avec Maven
+  mvn exec: java -Dexec.mainClass="main.Main"
+## 4. Menu Principal:
+  Au lancement le programme affiche:
+  === MENU ===
+1. Tester l'équipe municipale
+2. Tester le sac à dos
+3. Tester le Glouton Ajout
+4. Tester le Glouton Retrait
+5. Tester le Hill Climbing
+6. Quitter
 
+Votre choix :
 
----
+## Ordre recommandé d’exécution: Option 1 → Option 2 → Options 3/4/5
+## Problèmes courants : 
+Erreur de compilation Maven: 
+--> Sa solution : mvn clean install -U
 
-## Structure du projet
+  
+
 
