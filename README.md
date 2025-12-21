@@ -55,7 +55,7 @@ cd Gestion-des-budgets-d-une-ville
   Run Main.main()
   Interagir avec le menu dans la console
   2- Avec Maven
-  mvn exec: java -Dexec.mainClass="main.Main"
+  mvn clean compile exec:java
 ## 4. Menu Principal:
   Au lancement le programme affiche:
   === MENU ===
