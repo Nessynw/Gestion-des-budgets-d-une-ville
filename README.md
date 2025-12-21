@@ -123,9 +123,3 @@ Votre choix :
 ## Problèmes courants : 
 Erreur de compilation Maven: 
 --> Sa solution : mvn clean install -U
-````
-
----
-
-
-
