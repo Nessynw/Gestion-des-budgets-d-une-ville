@@ -1,6 +1,7 @@
+package sacados;
+
 import equipe.Projet;
 import equipe.Secteur;
-import sacados.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -8,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class TestVersSacADos {
     private VersSacADos vsacUnderTest=new VersSacADos();
@@ -67,10 +69,11 @@ public class TestVersSacADos {
 
     @Test
     public void convertir_nomFichier_SacADos(){
-        String filename="/test.dat";
+        String filename="test.dat";
         SacADos sac=vsacUnderTest.convertir(filename);
         assertEquals(3,sac.getDimension());
         assertArrayEquals(sac.getBudget(),creationBudget().getBudgetCouts());
         assertEquals(sac.getObjets(),creationObjets());
     }
 }
+
