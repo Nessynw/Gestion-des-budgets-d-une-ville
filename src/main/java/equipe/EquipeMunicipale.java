@@ -69,9 +69,9 @@ public class EquipeMunicipale {
 
     public void cycleSimulation() {
         for (Expert expert : experts) {
-            Secteur secteurExpert = expert.getCompetences().get(0);
-            String titre = "Projet " + expert.getNom();
-            Projet projet = expert.proposerProjet(titre, "Description du " + titre, secteurExpert);
+            for (Secteur secteur : expert.getCompetences()){
+            String titre = "Projet " + secteur + expert.getNom();
+            Projet projet = expert.proposerProjet(titre, "Description du " + titre, secteur);
             projetsEtudies.add(projet);
 
             evalEnv.evaluer(projet);
@@ -82,7 +82,7 @@ public class EquipeMunicipale {
 
             projetsEtudies.add(projet);
 
-        }
+        }}
     }
 
     /**
