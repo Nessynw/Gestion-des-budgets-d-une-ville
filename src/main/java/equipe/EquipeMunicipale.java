@@ -79,6 +79,9 @@ public class EquipeMunicipale {
             evalEco.evaluer(projet);
 
             elu.evaluerBenefice(projet);
+
+            projetsEtudies.add(projet);
+
         }
     }
 
@@ -105,7 +108,7 @@ public class EquipeMunicipale {
                 "\n  Évaluateur Social=" + evalSoc +
                 "\n  Évaluateur Économique=" + evalEco +
                 "\n  Experts=" + experts +
-                "\n  Projets étudiés=" + experts +
+                "\n  Projets étudiés=" + projetsEtudies +
                 "\n}";
     }
 }
