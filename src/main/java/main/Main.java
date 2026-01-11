@@ -129,7 +129,7 @@ public class Main {
         System.out.println(equipe);
 
         equipeGlobale = equipe;
-        return equipe;
+        return equipeGlobale;
     }
 
     /**
@@ -339,7 +339,6 @@ public class Main {
         }
         System.out.println("Amélioration     : +" + ((int) solutionFinale.getValeur() - (int) solutionInitiale.getValeur()));
         System.out.println("Itérations       : " + hillClimbing.getIterations());
-        System.out.println("Temps d'exécution: " + hillClimbing.getTempsExecution() + " ms");
 
         System.out.println("\nObjets sélectionnés:");
         for (int indice : solutionFinale.getObjets()) {
