@@ -72,7 +72,6 @@ public class EquipeMunicipale {
             for (Secteur secteur : expert.getCompetences()){
             String titre = "Projet " + secteur + expert.getNom();
             Projet projet = expert.proposerProjet(titre, "Description du " + titre, secteur);
-            projetsEtudies.add(projet);
 
             evalEnv.evaluer(projet);
             evalSoc.evaluer(projet);

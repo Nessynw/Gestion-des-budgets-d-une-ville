@@ -53,7 +53,7 @@ public class Expert extends Personne implements IExpert{
 
     /**
      *
-     * @returnune chaîne de caractères représentant l'expert.
+     * @return une chaîne de caractères représentant l'expert.
      */
     @Override
     public String toString() {

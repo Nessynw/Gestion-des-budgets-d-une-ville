@@ -85,7 +85,7 @@ public class HillClimbingSolver {
             throw new IllegalArgumentException("La solution initiale ne peut pas être null");
         }
         
-        long debut = System.currentTimeMillis();
+        long debut = System.currentTimeMillis(); // mesurer le temps d'exec pr comparer les performances
 
         if (!solution.respecteBudget(sacADos)) {
             throw new IllegalArgumentException("Solution initiale non réalisable");
@@ -173,14 +173,5 @@ public class HillClimbingSolver {
     public int getIterations() {
         return iterations;
     }
-
-    /**
-     *
-     * @return le temps d'éxécution en millisecondes de la dernière exécution
-     */
-    public long getTempsExecution() {
-        return tempsExecution;
-    }
-
 
 }

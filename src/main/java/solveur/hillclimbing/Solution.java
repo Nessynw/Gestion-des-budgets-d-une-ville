@@ -75,6 +75,14 @@ public class Solution {
                 ", valeur=" + valeur +
                 '}';
     }
+    public void calculerValeur(SacADos sac) {
+        double total = 0;
+        for (int indice : objets) {
+            total += sac.getObjets().get(indice).getUtilite();
+        }
+        this.valeur = total;
+    }
+
 
     /**
      * vérifie si la solution respecte le budget

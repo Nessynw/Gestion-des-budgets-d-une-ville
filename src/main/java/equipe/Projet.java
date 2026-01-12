@@ -5,8 +5,8 @@ package equipe;
  * représente un projet dans le sustème.
  */
 public class Projet{
-    private String titre;
-    private String description;
+    private final String titre;
+    private final String description;
     private final Secteur secteur;
     private double coutEconomique;
     private double coutSocial;
@@ -28,9 +28,6 @@ public class Projet{
     public String getTitre() {
         return titre;
     }
-    public String getDescription() {
-        return description;
-    }
     public Secteur getSecteur() {
         return secteur;
     }
@@ -44,6 +41,9 @@ public class Projet{
      * @param coutEconomique
      */
     public void setCoutEconomique(double coutEconomique) {
+        if (coutEconomique < 0) {
+            throw new IllegalArgumentException("Le coût ne peut pas être négatif");
+        }
         this.coutEconomique = coutEconomique;
     }
 
@@ -52,12 +52,20 @@ public class Projet{
     }
 
     public void setCoutSocial(double coutSocial) {
+        if(coutSocial<0){
+            throw new IllegalArgumentException("Le coût ne peut pas être négatif");
+
+        }
         this.coutSocial = coutSocial;
     }
     public double getCoutEnvironnemental() {
         return coutEnvironnemental;
     }
     public void setCoutEnvironnemental(double coutEnvironnemental) {
+        if(coutEnvironnemental<0){
+            throw new IllegalArgumentException("Le coût ne peut pas être négatif");
+
+        }
         this.coutEnvironnemental = coutEnvironnemental;
     }
 
@@ -79,7 +87,7 @@ public class Projet{
 
     /**
      *
-     * @returnune chaîne de caractères représentant le projet avec toutes ses évaluations
+     * @return une chaîne de caractères représentant le projet avec toutes ses évaluations
      */
     @Override
     public String toString() {

@@ -19,13 +19,6 @@ public enum Secteur {
     Secteur(String nom){
         this.libelle = nom;
     }
-
-    /**
-     *
-     * @return le libellé du secteur
-     */
-    public String getLibelle(){
-        return libelle;
-    }
+    
 
 }

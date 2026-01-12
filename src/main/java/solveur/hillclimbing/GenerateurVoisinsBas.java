@@ -2,6 +2,7 @@ package solveur.hillclimbing;
 
 import sacados.SacADos;
 import java.util.*;
+import  java.util.function.Consumer;
 
 /**
  * générateur de voisins pour un algorithme de hill climbing
@@ -36,7 +37,7 @@ public class GenerateurVoisinsBas implements IGenerateurVoisins {
         Set<Integer> objetsDisponibles = getObjetsDisponibles(objetsActuels, probleme);
 
         // Cas 1: Retirer uniquement
-        genererRetraits(objetsActuels, objetsDisponibles, voisins, probleme);
+        genererRetraits(objetsActuels,  voisins, probleme);
 
         // Cas 2: Ajouter uniquement
         genererAjouts(objetsActuels, objetsDisponibles, voisins, probleme);
@@ -67,12 +68,11 @@ public class GenerateurVoisinsBas implements IGenerateurVoisins {
     /**
      * génére des voisins en retirant entre 1 et t objets de la sol courante
      * @param objetsActuels objets selectionnés
-     * @param objetsDisponibles objets non selectionnés
      * @param voisins ens des solutions voisines générées
      * @param probleme instance du sac à dos
      */
 
-    private void genererRetraits(Set<Integer> objetsActuels, Set<Integer> objetsDisponibles,
+    private void genererRetraits(Set<Integer> objetsActuels,
                                  Set<Solution> voisins, SacADos probleme) {
         List<Integer> liste = new ArrayList<>(objetsActuels);
 
@@ -153,7 +153,7 @@ public class GenerateurVoisinsBas implements IGenerateurVoisins {
      * @param action action à appliquer sur chaque combinaison générée
      */
     private void genererCombinaisons(List<Integer> elements, int k,
-                                     java.util.function.Consumer<List<Integer>> action) {
+                                        Consumer<List<Integer>> action) {
         genererCombinaisonsRec(elements, k, 0, new ArrayList<>(), action);
     }
 
@@ -167,7 +167,7 @@ public class GenerateurVoisinsBas implements IGenerateurVoisins {
      */
     private void genererCombinaisonsRec(List<Integer> elements, int k, int debut,
                                         List<Integer> courante,
-                                        java.util.function.Consumer<List<Integer>> action) {
+                                        Consumer<List<Integer>> action) {
         if (courante.size() == k) {
             action.accept(new ArrayList<>(courante));
             return;

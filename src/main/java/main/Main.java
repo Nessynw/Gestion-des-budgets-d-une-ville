@@ -303,7 +303,7 @@ public class Main {
         // Génération de la solution initiale avec glouton
         System.out.println("\nGénération de la solution initiale (glouton)...");
         GloutonAjoutSolver glouton = new GloutonAjoutSolver(
-                (o1, o2) -> o2.getUtilite() - o1.getUtilite()
+                new Comparateur.ParUtiliteDecroissante()
         );
         List<Objet> objetsGloutons = glouton.resoudre(sacGlobal);
 
@@ -324,11 +324,12 @@ public class Main {
         }
 
         Solution solutionInitiale = new Solution(indices);
+        solutionInitiale.calculerValeur(sacGlobal);
         System.out.println("Utilité initiale: " + (int) solutionInitiale.getValeur());
 
         // Application du Hill Climbing
         System.out.println("\nAmélioration par Hill Climbing...");
-        HillClimbingSolver hillClimbing = new HillClimbingSolver(sacGlobal, 1);
+        HillClimbingSolver hillClimbing = new HillClimbingSolver(sacGlobal, 3, true, 10);
         Solution solutionFinale = hillClimbing.resoudre(solutionInitiale);
 
         // Affichage des résultats
